@@ -46,7 +46,6 @@ namespace ft
             typedef const T*                        pointer;
             typedef const T&                        reference;
     };
-
 }
 /*
 * ptrdiff_t :          result of substracting one iterator from another
@@ -55,4 +54,6 @@ namespace ft
 * T& :                 type of reference where iterator point
 * iterator_category :  iterator category from Iterator
 */
+
+
 #endif

@@ -13,7 +13,6 @@ namespace ft
             typedef Category        iterator_category;
 
     };
-
 }
 
 # include <iostream>
