@@ -163,6 +163,174 @@ namespace ft
             }
             // ------------------------------------------------------------------------------------------------
     };
+    /*
+     * Operator== : comparison between two iterators
+     * Return : true if equal
+     *
+     * (1) : both of them are same type (const or not)
+     * (2) : in case of const - not const
+     */
+    /* (1) */
+    template<typename T>
+    typename ft::random_access_iterator<T>::difference_type operator==(
+            const ft::random_access_iterator<T> lhs,
+            const ft::random_access_iterator<T> rhs)
+    {
+        return (lhs.base() == rhs.base());
+    }
+    /* (2) */
+    template<typename T1, typename T2>
+    typename ft::random_access_iterator<T1>::difference_type operator==(
+            const ft::random_access_iterator<T1> lhs,
+            const ft::random_access_iterator<T2> rhs)
+    {
+        return (lhs.base() == rhs.base());
+    }
+
+    /*
+     * Operator!= : comparison between two iterators
+     * Return : true if lhs != rhs
+     */
+    /* (1) */
+    template<typename T>
+    typename ft::random_access_iterator<T>::difference_type operator!=(
+            const ft::random_access_iterator<T> lhs,
+            const ft::random_access_iterator<T> rhs)
+    {
+        return (lhs.base() != rhs.base());
+    }
+    /* (2) */
+    template<typename T1, typename T2>
+    typename ft::random_access_iterator<T1>::difference_type operator!=(
+            const ft::random_access_iterator<T1> lhs,
+            const ft::random_access_iterator<T2> rhs)
+    {
+        return (lhs.base() != rhs.base());
+    }
+
+    /*
+     * Operator>= : comparison between two iterators
+     * Return : true if lhs >= rhs
+     */
+    /* (1) */
+    template<typename T>
+    typename ft::random_access_iterator<T>::difference_type operator>=(
+            const ft::random_access_iterator<T> lhs,
+            const ft::random_access_iterator<T> rhs)
+    {
+        return (lhs.base() >= rhs.base());
+    }
+    /* (2) */
+    template<typename T1, typename T2>
+    typename ft::random_access_iterator<T1>::difference_type operator>=(
+            const ft::random_access_iterator<T1> lhs,
+            const ft::random_access_iterator<T2> rhs)
+    {
+        return (lhs.base() >= rhs.base());
+    }
+
+    /*
+    * Operator>= : comparison between two iterators
+    * Return : true if lhs >= rhs
+    */
+    /* (1) */
+    template<typename T>
+    typename ft::random_access_iterator<T>::difference_type operator<=(
+            const ft::random_access_iterator<T> lhs,
+            const ft::random_access_iterator<T> rhs)
+    {
+        return (lhs.base() <= rhs.base());
+    }
+    /* (2) */
+    template<typename T1, typename T2>
+    typename ft::random_access_iterator<T1>::difference_type operator<=(
+            const ft::random_access_iterator<T1> lhs,
+            const ft::random_access_iterator<T2> rhs)
+    {
+        return (lhs.base() <= rhs.base());
+    }
+
+    /*
+     * Operator> : comparison between two iterators
+     * Return : true if lhs > rhs
+     */
+    /* (1) */
+    template<typename T>
+    typename ft::random_access_iterator<T>::difference_type operator>(
+            const ft::random_access_iterator<T> lhs,
+            const ft::random_access_iterator<T> rhs)
+    {
+        return (lhs.base() > rhs.base());
+    }
+    /* (2) */
+    template<typename T1, typename T2>
+    typename ft::random_access_iterator<T1>::difference_type operator>(
+            const ft::random_access_iterator<T1> lhs,
+            const ft::random_access_iterator<T2> rhs)
+    {
+        return (lhs.base() > rhs.base());
+    }
+
+    /*
+     * Operator< : comparison between two iterators
+     * Return : true if lhs < rhs
+     */
+    /* (1) */
+    template<typename T>
+    typename ft::random_access_iterator<T>::difference_type operator<(
+            const ft::random_access_iterator<T> lhs,
+            const ft::random_access_iterator<T> rhs)
+    {
+        return (lhs.base() < rhs.base());
+    }
+    /* (2) */
+    template<typename T1, typename T2>
+    typename ft::random_access_iterator<T1>::difference_type operator<(
+            const ft::random_access_iterator<T1> lhs,
+            const ft::random_access_iterator<T2> rhs)
+    {
+        return (lhs.base() < rhs.base());
+    }
+
+
+    /*
+     * Operator- : Difference between two iterators
+     * Return : difference_type
+     */
+    /* (1) */
+    template<typename T>
+    typename ft::random_access_iterator<T>::difference_type operator-(
+            const ft::random_access_iterator<T> lhs,
+            const ft::random_access_iterator<T> rhs)
+    {
+        return (lhs.base() - rhs.base());
+    }
+    /* (2) */
+    template<typename T1, typename T2>
+    typename ft::random_access_iterator<T1>::difference_type operator-(
+            const ft::random_access_iterator<T1> lhs,
+            const ft::random_access_iterator<T2> rhs)
+    {
+        return (lhs.base() - rhs.base());
+    }
+
+    /*
+     * Operator+ : return an iterator pointing to "current + n"
+     * Return : iterator
+     * DISCLAIMER : it's not allowed to
+     *      const_iter + const_iter
+     *      iter + iter
+     *      iter + const_iter
+     */
+    template<typename T>
+    typename ft::random_access_iterator<T> operator+ (
+            typename ft::random_access_iterator<T>::difference_type n,
+            typename ft::random_access_iterator<T> &current)
+    {
+        return (&(*current) + n);
+    }
+}
+
 
 
 #endif // RANDOM_ACCESS_ITERATOR_HPP
