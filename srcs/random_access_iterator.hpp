@@ -39,6 +39,11 @@ namespace ft
                 return (&(this->operator*()));
             }
 
+            pointer base() const
+            {
+                return (this->_ptr);
+            }
+
             /*
              * Operator [] allows to access an element at n position
              * from the element pointed by the iterator
