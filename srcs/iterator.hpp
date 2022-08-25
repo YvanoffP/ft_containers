@@ -1,5 +1,5 @@
 #ifndef ITERATOR_HPP
-# define ITERAOR_HPP
+# define ITERATOR_HPP
 
 namespace ft
 {
@@ -15,6 +15,8 @@ namespace ft
     };
 
     class random_access_iterator_tag {};
+
+    class bidirectional_iterator_tag {};
 }
 
 # include <iostream>

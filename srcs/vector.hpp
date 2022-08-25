@@ -21,7 +21,7 @@ namespace ft {
         typedef const value_type&       const_reference;
         typedef value_type*		        pointer;
         typedef const value_type*       const_pointer;
-        typedef ptrdiff_t		        difference_type;
+        typedef std::ptrdiff_t		        difference_type;
         typedef size_t			        size_type;
 
         /*

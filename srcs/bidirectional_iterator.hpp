@@ -31,13 +31,14 @@ namespace ft
 
         /* Destructor */
         virtual ~bidirectional_iterator() {}
-        // --------------------------------------- OPERATOR OVERLOAD ---------------------------------------
 
+        /* Base : Give pointer where iterator point, return iterator */
         pointer base() const
         {
             return (this->_ptr);
         }
 
+        // --------------------------------------- OPERATOR OVERLOAD ---------------------------------------
         /*
          * Operator-> : Returns a pointer to the element pointed by the iterator
          */
