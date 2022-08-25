@@ -1,5 +1,5 @@
 #ifndef VECTOR_HPP
-#define VECTOR_HPP
+# define VECTOR_HPP
 
 // -------------------------------------------- Includes ----------------------------------------------------
 # include <memory>

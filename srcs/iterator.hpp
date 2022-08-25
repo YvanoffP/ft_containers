@@ -13,6 +13,8 @@ namespace ft
             typedef Category        iterator_category;
 
     };
+
+    class random_access_iterator_tag {};
 }
 
 # include <iostream>
