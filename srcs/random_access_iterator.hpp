@@ -39,6 +39,7 @@ namespace ft
                 return (&(this->operator*()));
             }
 
+            /* Base : Give pointer where iterator point, return iterator */
             pointer base() const
             {
                 return (this->_ptr);
