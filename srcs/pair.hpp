@@ -3,6 +3,7 @@
 
 namespace ft {
 
+    template <class _T1, class _T2>
     struct pair
     {
         typedef _T1 first_type;
@@ -42,8 +43,9 @@ namespace ft {
     template<class _T1, class _T2>
     bool &operator>(const ft::pair<_T1, _T2> &lhs, const ft::pair<_T1, _T2> &rhs)
     { return lhs.first > rhs.first || lhs.first > rhs.second && lhs.second > rhs.second; }
-    
-    ft::pair make_pair(_T1 lhs, _T2 rhs)
+
+    template<class _T1, class _T2>
+    ft::pair<_T1, _T2> make_pair(_T1 lhs, _T2 rhs)
     { return ft::pair<_T1, _T2>(lhs, rhs); }
 }
 
