@@ -5,6 +5,7 @@
 #include "./pair.hpp"
 #include "./enable_if.hpp"
 #include "./equal.hpp"
+#include "./is_integral.hpp"
 
 int main()
 {
