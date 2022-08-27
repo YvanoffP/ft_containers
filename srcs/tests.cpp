@@ -4,6 +4,7 @@
 #include "./reverse_iterator.hpp"
 #include "./pair.hpp"
 #include "./enable_if.hpp"
+#include "./equal.hpp"
 
 int main()
 {

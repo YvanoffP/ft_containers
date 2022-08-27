@@ -28,7 +28,7 @@ namespace ft {
      * for example, be a function that takes two arguments and tests whether
      * they are equal.
      */
-    template <class InputIterator1, class InputIterator2>
+    template <class InputIterator1, class InputIterator2, class BinaryPredicate>
     bool equal ( InputIterator1 first1, InputIterator1 last1,
                  InputIterator2 first2, BinaryPredicate pred )
     {
