@@ -15,21 +15,32 @@ namespace ft
         typedef T*  pointer;
         typedef T&  reference;
     private:
-        pointer _ptr;
+        iterator_type _it;
 
     public:
         // ------------------------------------ CONSTRUCTOR DESTRUCTOR -------------------------------------
         /* Default constructor, pointer is NULL */
-        reverse_iterator() : _ptr(NULL) {}
+        reverse_iterator() : _it() {}
 
-        /* Constructor from pointer, _ptr point on the element passed as parameter */
-        reverse_iterator(pointer ptr) : _ptr(ptr) {}
+        // constructing from an iterator type
+        explicit reverse_iterator(iterator_type it) : _it(it) {}
 
-        /* Copy constructor : construct iterator and copy the pointer */
-        reverse_iterator(const reverse_iterator &cpy) : _ptr(cpy._ptr) {}
+        // Copy construction
+        template <class Iter>
+        reverse_iterator (const reverse_iterator<Iter> &rev_it) : _it(rev_it.base()) {}
+
+        template <class Iter>
+        reverse_iterator &operator=(const reverse_iterator<Iter> &rev_it) {
+            if (this == &rev_it)
+                return (*this);
+            this->_it = rev_it.base();
+            return (*this);
+        }
 
         /* Destructor */
         virtual ~reverse_iterator() {}
+
+        //TODO : FROM HERE
         // --------------------------------------- OPERATOR OVERLOAD ---------------------------------------
         /*
          * Operator-> : Returns a pointer to the element pointed by the iterator
