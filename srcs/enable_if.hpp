@@ -10,7 +10,6 @@
  */
 
 namespace ft {
-    public:
         template<bool Cond, class T = void>
         struct enable_if {};
 
