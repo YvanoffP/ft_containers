@@ -10,7 +10,14 @@
  */
 
 namespace ft {
+    public:
+        template<bool Cond, class T = void>
+        struct enable_if {};
 
+        template<class T>
+        struct enable_if<true, T> { typedef T type; };
 }
+
+//TODO : MORE comms
 
 #endif // ENABLE_IF_HPP
