@@ -248,13 +248,8 @@ namespace ft {
             {
                 _size++;
                 if (_size > _capacity)
-                {
-                    //???
-                }
-                else
-                {
-                    *(_vector + _size) = val;
-                }
+                    this->reserve(_capacity * 2);
+                *(_vector + _size) = val;
             }
 
             void clear ( void )

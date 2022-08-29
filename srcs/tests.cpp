@@ -61,7 +61,7 @@ int main()
     std::cout << "ft vector back : " << test_ft.back() << std::endl;
     std::cout << "std vector back : " << test_std.back() << std::endl;
     //---------------------------------------------------
-    test_ft.reserve(122);
+    test_ft.push_back(122);
     std::cout << "ft vector size : " << test_ft.size() << std::endl;
     std::cout << "ft vector capacity : " << test_ft.capacity() << std::endl;
     std::cout << "ft vector back : " << test_ft[13] << std::endl;
