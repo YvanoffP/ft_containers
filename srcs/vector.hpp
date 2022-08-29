@@ -226,7 +226,11 @@ namespace ft {
             /*
              * MODIFIERS ---------------------------------------------------------------
              */
-
+            /*
+             * Reserve n space for future usage
+             * n is allocated in a new pointer and the content
+             * of old pointer is copied and clear/destroyed
+             */
             void reserve (size_type n)
             {
                 if (n > this->max_size())
@@ -244,12 +248,59 @@ namespace ft {
                 }
             }
 
+            /*
+             * Add val after the last position in the vector size
+             * if size > capacity, a resize is done
+             */
             void push_back ( const value_type &val )
             {
                 _size++;
                 if (_size > _capacity)
                     this->reserve(_capacity * 2);
                 *(_vector + _size) = val;
+            }
+
+            template <class InputIterator>
+            /*
+             * Assign by range
+             * It is important to call clear() here
+             * it has no impact on standard types but .destroy() calls destructor for specified object
+             */
+            void assign (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first,
+                         InputIterator last)
+            {
+                size_type n = distance(first, last);
+                this->clear();
+                if (n > _capacity)
+                {
+                    _alloc.deallocate(_vector, _capacity);
+                    _vector = _alloc.allocate(n);
+                    _capacity = n;
+                }
+                for (size_t j = 0; j < n; j++) {
+                    _alloc.construct(_vector + j, first++);
+                }
+                _size = n;
+
+            }
+            /*
+             * Assign by fill
+             * It is important to call clear() here
+             * it has no impact on standard types but .destroy() calls destructor for specified object
+             */
+            void assign (size_type n, const value_type &val)
+            {
+                this->clear();
+                if (n > _capacity)
+                {
+                    _alloc.deallocate(_vector, _capacity);
+                    _vector = _alloc.allocate(n);
+                    _capacity = n;
+                }
+                for (size_t j = 0; j < n; j++) {
+                    _alloc.construct(_vector + j, val);
+                }
+                _size = n;
             }
 
             void clear ( void )

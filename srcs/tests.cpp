@@ -51,7 +51,6 @@ int main()
     // DECOMMENT THESE ONE BY ONE TO CHECK THROW
     //test_ft.at(22);
     //test_std.at(22);
-
     //---------------------------------------------------
     std::cout << std::endl << "---------------front()--------------------------------" << std::endl;
     std::cout << "ft vector front : " << test_ft.front() << std::endl;
@@ -61,10 +60,19 @@ int main()
     std::cout << "ft vector back : " << test_ft.back() << std::endl;
     std::cout << "std vector back : " << test_std.back() << std::endl;
     //---------------------------------------------------
-    test_ft.push_back(122);
+    test_std.assign(2, 23);
+    std::cout << "std vector size : " << test_std.size() << std::endl;
+    std::cout << "std vector capacity : " << test_std.capacity() << std::endl;
+    std::cout << "std vector @ [10] : " << test_std[1] << std::endl;
+    test_ft.assign(2, 23);
     std::cout << "ft vector size : " << test_ft.size() << std::endl;
     std::cout << "ft vector capacity : " << test_ft.capacity() << std::endl;
-    std::cout << "ft vector back : " << test_ft[13] << std::endl;
+    std::cout << "ft vector @ [10] : " << test_ft[1] << std::endl;
+
+
+
+
+
 
 
     return (0);
