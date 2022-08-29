@@ -65,23 +65,27 @@ namespace ft {
                  }
              }
 
+             //TODO: Copy constructor with insert
+
             template <class InputIterator>
             vector (InputIterator first, InputIterator last,
                     const allocator_type& alloc = allocator_type(),
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
-                    : _alloc(alloc)
+                    : _alloc(alloc), _size(0)
             {
                 difference_type n = ft::distance(first, last);
                 _alloc.allocate(n);
                 for (size_t j = 0; n > 0; n--)
                 {
                     _alloc.construct((_vector + j++), *first++);
+                    _size++;
                 }
             }
 
             ~vector ()
             {
-
+                this->clear();
+                _alloc.deallocate(_vector, _capacity);
             }
 
             /*
@@ -104,6 +108,18 @@ namespace ft {
             reverse_iterator rend (void) { return (reverse_iterator(this->begin())); }
 
             const_reverse_iterator rend (void) const { return (reverse_iterator(this->begin())); }
+
+            /*
+             * Operator ------------------------------------------------------------------------------------------------
+             */
+            vector &operator=(const vector &rhs)
+            {
+                if (rhs == *this)
+                    return (*this);
+                this->clear();
+                //this->insert(this->end(), rhs.begin(), rhs.end());
+                return (*this);
+            }
 
             /*
             * Capacity ------------------------------------------------------------------------------------------------
@@ -201,12 +217,52 @@ namespace ft {
              * Unlike end, which returns an iterator to the last element
              * non-const and const version :
              */
-            reference back () { return (*(_vector + _size - 1)); }
-            const_reference back () const { return (*(_vector + _size - 1)); }
+            reference back () { return (*(_vector + _size)); }
+            const_reference back () const { return (*(_vector + _size)); }
             /*
             * Small function to empty the vector and destroy it
             */
             // TODO : void clear() { }
+            /*
+             * MODIFIERS ---------------------------------------------------------------
+             */
+
+            void reserve (size_type n)
+            {
+                if (n > this->max_size())
+                    throw::std::length_error("The requested size is too high");
+                if (n > this->_capacity)
+                {
+                    pointer tmp = _alloc.allocate(n);
+                    for (size_t j = 0; j < this->size(); j++)
+                        _alloc.construct(tmp, *(_vector + j));
+                    for (size_t j = 0; j < this->size(); j++)
+                        _alloc.destroy(_vector + j);
+                    _alloc.deallocate(_vector, _capacity);
+                    _capacity = n;
+                    _vector = tmp;
+                }
+            }
+
+            void push_back ( const value_type &val )
+            {
+                _size++;
+                if (_size > _capacity)
+                {
+                    //???
+                }
+                else
+                {
+                    *(_vector + _size) = val;
+                }
+            }
+
+            void clear ( void )
+            {
+                for (size_t j = 0; j != _size; j++)
+                    _alloc.destroy(_vector + j);
+                _size = 0;
+            }
 
     };
 }

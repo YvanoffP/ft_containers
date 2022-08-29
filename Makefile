@@ -7,7 +7,7 @@ RM				= rm -f
 CXXFLAGS		= -Wall -Wextra -Werror -pedantic -I.
 CPP_FLAGS       = -std=c++98
 
-NAME			= array
+NAME			= containers
 
 all:			$(NAME)
 
