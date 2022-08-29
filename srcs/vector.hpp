@@ -154,12 +154,6 @@ namespace ft {
             bool        empty (void) const { return (size() == 0 ? true : false); }
 
             /*
-             * This function checks if vector can allocate n elements in the current vector
-             * if not, it sets the _max_capacity to n
-             */
-            //TODO: void        reserve (size_type n) { }
-
-            /*
             * Element access ------------------------------------------------------------------------------------------
             */
             /*
@@ -220,10 +214,6 @@ namespace ft {
             reference back () { return (*(_vector + _size)); }
             const_reference back () const { return (*(_vector + _size)); }
             /*
-            * Small function to empty the vector and destroy it
-            */
-            // TODO : void clear() { }
-            /*
              * MODIFIERS ---------------------------------------------------------------
              */
             /*
@@ -238,11 +228,14 @@ namespace ft {
                 if (n > this->_capacity)
                 {
                     pointer tmp = _alloc.allocate(n);
-                    for (size_t j = 0; j < this->size(); j++)
-                        _alloc.construct(tmp, *(_vector + j));
-                    for (size_t j = 0; j < this->size(); j++)
-                        _alloc.destroy(_vector + j);
-                    _alloc.deallocate(_vector, _capacity);
+                    if (_vector != nullptr)
+                    {
+                        for (size_t j = 0; j < this->size(); j++)
+                            _alloc.construct(tmp + j, *(_vector + j));
+                        for (size_t j = 0; j < this->size(); j++)
+                            _alloc.destroy(_vector + j);
+                        _alloc.deallocate(_vector, _capacity);
+                    }
                     _capacity = n;
                     _vector = tmp;
                 }
@@ -256,8 +249,16 @@ namespace ft {
             {
                 _size++;
                 if (_size > _capacity)
-                    this->reserve(_capacity * 2);
-                *(_vector + _size) = val;
+                {
+                    if (_capacity == 0) {
+                        _capacity = 1;
+                        _vector = _alloc.allocate(1);
+                        this->reserve(1); // TODO : TERNAIRE MOI CA MON GRAND
+                    }
+                    else
+                        this->reserve(_capacity * 2);
+                }
+                _alloc.construct(_vector + _size - 1, val);
             }
 
             template <class InputIterator>
@@ -303,12 +304,55 @@ namespace ft {
                 _size = n;
             }
 
+            /*
+             * Clear destroy all elements
+             * destroy calls the destructor of the element
+             * Then set the size to 0
+             */
             void clear ( void )
             {
                 for (size_t j = 0; j != _size; j++)
                     _alloc.destroy(_vector + j);
                 _size = 0;
             }
+
+            /*
+             * Removes the last element of the container
+             */
+            void pop_back(void)
+            {
+                _alloc.destroy(*this->back());
+                _size--;
+            }
+
+            // TODO: insert / swap / erase
+            iterator erase(iterator position)
+            {
+                _size--;
+                _alloc.destroy(&(*position));
+                for (iterator it = position; it != this->end(); it++) {
+                    *it = *(it + 1);
+                }
+                return (position);
+            }
+
+            iterator erase(iterator first, iterator last)
+            {
+                size_type erase = 0;
+
+                for (iterator it = first; it != last; it++) {
+                    _alloc.destroy(&(*it));
+                    erase++;
+                }
+                for (iterator it = first; last != this->end(); last++) {
+                    *it = *(last);
+                    it++;
+                }
+                this->_size -= erase;
+                return (first);
+            }
+
+
 
     };
 }

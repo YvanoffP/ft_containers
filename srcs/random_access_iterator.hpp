@@ -53,6 +53,17 @@ namespace ft
             {
                 return (*(operator+(n)));
             }
+            /*
+             * Copy assignation, give an iterator who is a copy from "rhs"
+             * Return the iterator
+             */
+            random_access_iterator &operator=(const random_access_iterator &rhs)
+            {
+                if (this == &rhs)
+                    return (*this);
+                this->_ptr = rhs._ptr;
+                return (*this);
+            }
 
             /*
              * Operator* : dereference -> give reference to value of element where iterator point
@@ -150,7 +161,7 @@ namespace ft
              */
             random_access_iterator operator-(difference_type n)
             {
-                (this->_ptr - n);
+                return (this->_ptr - n);
             }
 
             /*
@@ -159,7 +170,7 @@ namespace ft
              */
             random_access_iterator operator+(difference_type n)
             {
-                (this->_ptr + n);
+                return (this->_ptr + n);
             }
 
             /*
