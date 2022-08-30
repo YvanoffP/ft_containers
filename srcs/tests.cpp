@@ -72,9 +72,9 @@ int main()
     it_std_first = test_std.begin();
     it_std_second = test_std.begin();
     // Move iterators to 25 for first and 30 for second
-    for (int i; i < 25; i++)
+    for (int u = 0; u < 25; u++)
         it_std_first++;
-    for (int i; i < 30; i++)
+    for (int u = 0; u < 30; u++)
         it_std_second++;
     // Call of erase within the range
     test_std.erase(it_std_first, it_std_second);
@@ -89,9 +89,9 @@ int main()
     it_ft_first = test_ft.begin();
     it_ft_second = test_ft.begin();
     // Move iterators to 25 for first and 30 for second
-    for (int i; i < 25; i++)
+    for (int u = 0; u < 25; u++)
         it_ft_first++;
-    for (int i; i < 30; i++)
+    for (int u = 0; u < 30; u++)
         it_ft_second++;
     // Call of erase within the range
     test_ft.erase(it_ft_first, it_ft_second);
@@ -100,9 +100,89 @@ int main()
         std::cout << i++ << ": *it_ft: " << *it_ft << std::endl;
     }
     i = 0;
+    //---------------------------------------------------
+    ft::vector<int> test_ft1;
+    ft::vector<int> test_ft2;
+    std::vector<int> test_std1;
+    std::vector<int> test_std2;
+
+    for (int i = 0; i < 50; i++)
+        test_ft1.push_back(i);
+    for (int i = 55; i > 0; i--)
+        test_ft2.push_back(i);
+    for (int i = 0; i < 50; i++)
+        test_std1.push_back(i);
+    for (int i = 55; i > 0; i--)
+        test_std2.push_back(i);
+
+    std::cout << "---------------------------Swap()---------------------------" << std::endl;
+    std::cout << "------------------------FT_CONTAINER------------------------" << std::endl;
+    std::cout << "Size 1 : " << test_ft1.size() << std::endl;
+    std::cout << "Size 2 : " << test_ft2.size() << std::endl;
+
+    std::cout << "Capacity 1 : " << test_ft1.capacity() << std::endl;
+    std::cout << "Capacity 2 : " << test_ft2.capacity() << std::endl;
+
+    std::cout << "Begin 1 : " << *(test_ft1.begin()) << std::endl;
+    std::cout << "Begin 2 : " << *(test_ft2.begin()) << std::endl;
+
+    std::cout << "##### Swap ........ ######" << std::endl;
+    test_ft1.swap(test_ft2);
+
+    std::cout << "Size 1 : " << test_ft1.size() << std::endl;
+    std::cout << "Size 2 : " << test_ft2.size() << std::endl;
+
+    std::cout << "Capacity 1 : " << test_ft1.capacity() << std::endl;
+    std::cout << "Capacity 2 : " << test_ft2.capacity() << std::endl;
+
+    std::cout << "Begin 1 : " << *(test_ft1.begin()) << std::endl;
+    std::cout << "Begin 2 : " << *(test_ft2.begin()) << std::endl;
 
 
+    std::cout << "------------------------STD_CONTAINER------------------------" << std::endl;
+    std::cout << "Size 1 : " << test_std1.size() << std::endl;
+    std::cout << "Size 2 : " << test_std2.size() << std::endl;
 
+    std::cout << "Capacity 1 : " << test_std1.capacity() << std::endl;
+    std::cout << "Capacity 2 : " << test_std2.capacity() << std::endl;
+
+    std::cout << "Begin 1 : " << *(test_std1.begin()) << std::endl;
+    std::cout << "Begin 2 : " << *(test_std2.begin()) << std::endl;
+
+    std::cout << "##### Swap ........ ######" << std::endl;
+    test_std1.swap(test_std2);
+
+    std::cout << "Size 1 : " << test_std1.size() << std::endl;
+    std::cout << "Size 2 : " << test_std2.size() << std::endl;
+
+    std::cout << "Capacity 1 : " << test_std1.capacity() << std::endl;
+    std::cout << "Capacity 2 : " << test_std2.capacity() << std::endl;
+
+    std::cout << "Begin 1 : " << *(test_std1.begin()) << std::endl;
+    std::cout << "Begin 2 : " << *(test_std2.begin()) << std::endl;
+
+    //---------------------------------------------------
+
+    std::cout << "---------------------------Shrink_to_fit()---------------------------" << std::endl;
+    std::cout << "------------------------FT_CONTAINER------------------------" << std::endl;
+    test_ft1.pop_back();
+    test_ft1.pop_back();
+    std::cout << "Size : " << test_ft1.size() << std::endl;
+    std::cout << "Capacity : " << test_ft1.capacity() << std::endl;
+    std::cout << "##### Shrink to fit ........ ######" << std::endl;
+    test_ft1.shrink_to_fit();
+    std::cout << "Size : " << test_ft1.size() << std::endl;
+    std::cout << "Capacity : " << test_ft1.capacity() << std::endl;
+
+    std::cout << "------------------------STD_CONTAINER------------------------" << std::endl;
+    test_std1.pop_back();
+    test_std1.pop_back();
+    std::cout << "Size : " << test_std1.size() << std::endl;
+    std::cout << "Capacity : " << test_std1.capacity() << std::endl;
+    std::cout << "##### Shrink to fit ........ ######" << std::endl;
+    test_std1.shrink_to_fit();
+    std::cout << "Size : " << test_std1.size() << std::endl;
+    std::cout << "Capacity : " << test_std1.capacity() << std::endl;
 
     return (0);
 }

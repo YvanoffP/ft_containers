@@ -65,8 +65,6 @@ namespace ft {
                  }
              }
 
-             //TODO: Copy constructor with insert
-
             template <class InputIterator>
             vector (InputIterator first, InputIterator last,
                     const allocator_type& alloc = allocator_type(),
@@ -146,7 +144,21 @@ namespace ft {
              * if the value targeted is greater than _max_capacity, it just respects the allocation calcul.
              * if the resize is smaller than the size, it destroys until it reaches the size wanted
              */
-            //TODO : void        resize ( ) { }
+            void        resize ( size_type n, value_type val = value_type() )
+            {
+                if (n > this->max_size())
+                    throw::std::length_error("The requested size is too high");
+                else if (n < this->size())
+                {
+                    for (size_t j = _size; _size > n; j--)
+                    {
+                        _alloc.destroy(_vector + j);
+                        _size--;
+                    }
+                    //else
+                    //    this->insert(this->end(), n - this->size(), val);
+                }
+            }
 
             /*
              * Returns whether the container is empty or not
@@ -156,6 +168,9 @@ namespace ft {
             /*
             * Element access ------------------------------------------------------------------------------------------
             */
+            value_type *data( void ) { return (this->_vector); }
+            const value_type *data( void ) const { return (this->_vector); }
+
             /*
              * Returns a reference to the element at position n in the vector
              */
@@ -169,7 +184,20 @@ namespace ft {
             /*
              * Reduces the capacity of the container to fit it's size and destroys all elements beyond it's capacity
              */
-            // TODO : void    shrink_to_fit () { }
+            void    shrink_to_fit (void)
+            {
+                if (this->_size < this->_capacity)
+                {
+                    pointer tmp = _alloc.allocate(this->_size);
+                    for (size_t j = 0; j < this->size(); j++)
+                        _alloc.construct(tmp + j, *(_vector + j));
+                    for (size_t j = 0; j < this->size(); j++)
+                        _alloc.destroy(_vector + j);
+                    _alloc.deallocate(_vector, _capacity);
+                    this->_capacity = this->_size;
+                    this->_vector = tmp;
+                }
+            }
             /*
              * It is used to get a reference to the element present at the position given as the parameter to
              * the function
@@ -253,7 +281,7 @@ namespace ft {
                     if (_capacity == 0) {
                         _capacity = 1;
                         _vector = _alloc.allocate(1);
-                        this->reserve(1); // TODO : TERNAIRE MOI CA MON GRAND
+                        this->reserve(1);
                     }
                     else
                         this->reserve(_capacity * 2);
@@ -321,11 +349,17 @@ namespace ft {
              */
             void pop_back(void)
             {
-                _alloc.destroy(*this->back());
+                _alloc.destroy(&this->back());
                 _size--;
             }
 
-            // TODO: insert / swap / erase
+            /*
+             * Erase remove an element from the vector.
+             * It resized the container after removing the element.
+             * Calling destroy is important to make sure we call the destructor of the element
+             *
+             * The second version deletes elements within a range of iterators
+             */
             iterator erase(iterator position)
             {
                 _size--;
@@ -351,8 +385,38 @@ namespace ft {
                 this->_size -= erase;
                 return (first);
             }
+            // TODO: insert / data
 
+            iterator insert (iterator position, const value_type& val)
+            {
 
+            }
+
+            /*
+             * Swap the elements of the vector passed in the parameter with the
+             * vector calling the method
+             */
+            void swap (vector& x)
+            {
+                //todo decomment when insert is done
+                //if (x == *this)
+                    //return;
+
+                size_t tmp_size = x._size;
+                size_t tmp_capacity = x._capacity;
+                pointer tmp_vector = x._vector;
+                allocator_type tmp_alloc = x._alloc;
+
+                x._size = this->_size;
+                x._vector = this->_vector;
+                x._capacity = this->_capacity;
+                x._alloc = this->_alloc;
+
+                this->_size = tmp_size;
+                this->_vector = tmp_vector;
+                this->_capacity = tmp_capacity;
+                this->_alloc = tmp_alloc;
+            }
 
     };
 }
