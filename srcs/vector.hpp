@@ -110,7 +110,7 @@ namespace ft {
             if (rhs == *this)
                 return (*this);
             this->clear();
-            //this->insert(this->end(), rhs.begin(), rhs.end());
+            this->insert(this->end(), rhs.begin(), rhs.end());
             return (*this);
         }
 
@@ -147,9 +147,9 @@ namespace ft {
                     _alloc.destroy(_vector + j);
                     _size--;
                 }
-                //else
-                //    this->insert(this->end(), n - this->size(), val);
             }
+            else
+                this->insert(this->end(), n - this->size(), val);
         }
 
         /*
@@ -365,7 +365,6 @@ namespace ft {
             this->_size -= erase;
             return (first);
         }
-        // TODO: insert
 
         iterator insert(iterator position, const value_type &val) {
             if (this->size() + 1 > this->capacity()) {
