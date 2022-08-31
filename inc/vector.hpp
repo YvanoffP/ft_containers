@@ -464,6 +464,40 @@ namespace ft {
                      InputIterator last)
         {
             size_type n = ft::distance(first, last);
+            size_type distance = ft::distance(this->begin(), position);
+            if (_size + n > _capacity)
+            {
+                if (this->size() + n > this->capacity() * 2)
+                    this->_capacity = n + this->size();
+                else if (this->size() + n > this->capacity())
+                    this->_capacity *= 2;
+                pointer tmp = _alloc.allocate(this->capacity());
+                for (size_type i = 0; i < distance; i++)
+                    _alloc.construct(tmp + i, *(_vec + i));
+                for (size_type i = 0; i < n; i++)
+                    _alloc.construct(tmp + i + distance, *first++);
+                for (size_type i = 0; i < this->size(); i++)
+                    _alloc.construct(tmp + distance + n + i, *(_vec + distance + i));
+                _size = this->size() + n;
+                for (size_type j = 0; j < this->size(); j++)
+                    _alloc.destroy(_vec + j);
+                _alloc.deallocate(_vec, _capacity);
+                _vec = tmp;
+            }
+            else
+            {
+                size_type new_end = _size + n;
+                for (iterator end_scope = this->end(); end_scope != position; end_scope--)
+                {
+                    _alloc.construct(_vec + new_end--, *end_scope);
+                }
+                _alloc.construct(_vec + new_end, *position);
+                for (size_type i = 0;i < n; i++)
+                {
+                    *(position + i) = *first++;
+                }
+                _size += n;
+            }
 
         }
 

@@ -189,23 +189,36 @@ int main()
     std::cout << "---------------------------insert()---------------------------" << std::endl;
     std::vector<int> test_std3;
     std::vector<int>::iterator it_std_insert;
+    std::vector<int>::iterator it_std_insert_first;
+    std::vector<int>::iterator it_std_insert_last;
+    std::vector<int> test_std_insert;
+
     for (int u = 0; u < 8; u++)
         test_std3.push_back(u);
+    for (int u = 20; u < 33; u++)
+        test_std_insert.push_back(u);
     it_std_insert = test_std3.begin();
+    it_std_insert_first = test_std_insert.begin();
+    it_std_insert_last = test_std_insert.begin();
     for (int u = 0; u < 3; u++)
         it_std_insert++;
+    for (int u = 0; u < 3; u++)
+        it_std_insert_first++;
+    for (int u = 0; u < 6; u++)
+        it_std_insert_last++;
+
     std::cout << "Size : " << test_std3.size() << std::endl;
     std::cout << "Capacity : " << test_std3.capacity() << std::endl;
     std::cout << "##### insert ........ ######" << std::endl;
-    test_std3.insert(it_std_insert, 15, 2000);
+    test_std3.insert(it_std_insert, test_std_insert.begin(), test_std_insert.end());
     std::cout << "Size : " << test_std3.size() << std::endl;
     std::cout << "Capacity : " << test_std3.capacity() << std::endl;
     i = 0;
-    for(std::vector<int>::iterator it_std = test_std3.begin(); it_std != test_std3.end(); ++it_std) {
-        std::cout << i++ << ": *it_std: " << *it_std << std::endl;
+    for(std::vector<int>::iterator it_std44 = test_std3.begin(); it_std44 != test_std3.end(); ++it_std44) {
+        std::cout << i++ << ": *it_std: " << *it_std44 << std::endl;
     }
     i = 0;
-
+    
     std::cout << "---------------------------insert()---------------------------" << std::endl;
     ft::vector<int> test_ft3;
     ft::vector<int>::iterator it_ft_insert;
@@ -215,8 +228,7 @@ int main()
 
     for (int u = 0; u < 8; u++)
         test_ft3.push_back(u);
-    test_ft3.reserve(100);
-    for (int u = 26; u < 33; u++)
+    for (int u = 20; u < 33; u++)
         test_ft_insert.push_back(u);
     it_ft_insert = test_ft3.begin();
     it_ft_insert_first = test_ft_insert.begin();
@@ -231,7 +243,7 @@ int main()
     std::cout << "Size : " << test_ft3.size() << std::endl;
     std::cout << "Capacity : " << test_ft3.capacity() << std::endl;
     std::cout << "##### insert ........ ######" << std::endl;
-    test_ft3.insert(it_ft_insert, it_ft_insert_first, it_ft_insert_last);
+    test_ft3.insert(it_ft_insert, test_ft_insert.begin(), test_ft_insert.end());
     std::cout << "Size : " << test_ft3.size() << std::endl;
     std::cout << "Capacity : " << test_ft3.capacity() << std::endl;
     i = 0;
