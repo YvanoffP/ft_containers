@@ -292,7 +292,6 @@ namespace ft {
          */
          void push_back (const value_type& val)
          {
-             // TODO : Ternaire ici non ??
              if (this->_capacity == 0)
              {
                  this->_capacity = 1;
