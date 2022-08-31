@@ -17,6 +17,5 @@ namespace ft {
         struct enable_if<true, T> { typedef T type; };
 }
 
-//TODO : MORE comms
 
 #endif // ENABLE_IF_HPP

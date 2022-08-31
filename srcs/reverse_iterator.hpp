@@ -347,7 +347,6 @@ namespace ft
     {
         return (&(*current) + n);
     }
-    //TODO: const addition ?
 }
 
 

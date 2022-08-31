@@ -479,7 +479,7 @@ namespace ft {
              */
             void swap (vector& x)
             {
-                //todo decomment when insert is done
+                //todo decomment when op == is done
                 //if (x == *this)
                     //return;
 
@@ -500,5 +500,85 @@ namespace ft {
             }
 
     };
+
+    /*
+     * Overload of ==
+     */
+    template <class T, class Alloc>
+    bool operator== (const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+    {
+        if (lhs.size() != rhs.size())
+            return (false);
+        iterator begin_right = rhs.begin();
+        for (iterator it = lhs.begin(); it != lhs.end(); it++) {
+            if (*it != *begin_right)
+                return (false);
+            begin_right++;
+        }
+        return (true);
+    }
+
+    /*
+     * Operator !=
+     */
+    template <class T, class Alloc>
+    bool operator!= (const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+    {
+        return (!(lhs == rhs));
+    }
+
+    /*
+     * Operator <
+     */
+    template <class T, class Alloc>
+    bool operator<  (const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+    {
+        iterator beg_right = rhs.begin();
+
+        for (iterator it = lhs.begin(); it != lhs.end(); it++) {
+            if (*it >= *beg_right)
+                return (false);
+            beg_right++;
+        }
+        return (true);
+    }
+
+    /*
+     * Overload of operator >
+     */
+    template <class T, class Alloc>
+        bool operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
+        {
+            return (rhs < lhs);
+        }
+
+    /*
+     * Operator <=
+     */
+    template <class T, class Alloc>
+        bool operator<= (const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+        {
+            return (!(rhs < lhs));
+        }
+
+    /*
+     * Overload of operator >=
+     * if "lhs" elements are lexicographicalement superior or equal than "rhs".
+     * true if "lhs" is lexicographicalement superior or equal, false otherwise.
+     */
+    template <class T, class Alloc>
+        bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
+        {
+            return (!(lhs < rhs));
+        }
+
+    /*
+     * overload of swap vect.
+     */
+    template <class T, class Alloc>
+        void swap(vector<T,Alloc>& x, vector<T,Alloc>&y)
+        {
+            x.swap(y);
+        }
 }
 #endif // VECTOR_HPP
