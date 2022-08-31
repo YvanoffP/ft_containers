@@ -144,7 +144,7 @@ namespace ft
          */
         reverse_iterator &operator-=(difference_type n) const
         {
-            this->_ptr += n;
+            this->_it += n;
             return (*this);
         }
 
@@ -154,26 +154,8 @@ namespace ft
          */
         reverse_iterator &operator+=(difference_type n) const
         {
-            this->_ptr -= n;
+            this->_it -= n;
             return (*this);
-        }
-
-        /*
-         * Operator- : subtract n
-         * Give iterator where element is "this - n" in memory
-         */
-        reverse_iterator operator-(difference_type n)
-        {
-            (this->_ptr - n);
-        }
-
-        /*
-         * Operator+ : add n
-         * Give iterator where element is "this + n" in memory
-         */
-        reverse_iterator operator+(difference_type n)
-        {
-            (this->_ptr + n);
         }
 
         /*

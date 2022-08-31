@@ -2,7 +2,7 @@ SRCS			= ./inc/tests.cpp
 
 OBJS			= $(SRCS:.cpp=.o)
 
-CXX				= c++ #g++-11
+CXX				= clang++ #g++-11
 RM				= rm -f
 CXXFLAGS		= -Wall -Wextra -Werror -pedantic -I.
 CPP_FLAGS       = -std=c++98

@@ -8,7 +8,7 @@
 #include "./is_integral.hpp"
 #include "./vector.hpp"
 #include <vector>
-#include "./map.hpp"
+//#include "./map.hpp"
 
 int main()
 {
