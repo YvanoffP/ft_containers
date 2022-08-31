@@ -228,7 +228,7 @@ int main()
 
     for (int u = 0; u < 8; u++)
         test_ft3.push_back(u);
-    for (int u = 20; u < 33; u++)
+    for (int u = 0; u < 10000; u++)
         test_ft_insert.push_back(u);
     it_ft_insert = test_ft3.begin();
     it_ft_insert_first = test_ft_insert.begin();
@@ -243,7 +243,7 @@ int main()
     std::cout << "Size : " << test_ft3.size() << std::endl;
     std::cout << "Capacity : " << test_ft3.capacity() << std::endl;
     std::cout << "##### insert ........ ######" << std::endl;
-    test_ft3.insert(it_ft_insert, test_ft_insert.begin(), test_ft_insert.end());
+    test_ft3.insert(test_ft3.begin(), test_ft_insert.begin(), test_ft_insert.end());
     std::cout << "Size : " << test_ft3.size() << std::endl;
     std::cout << "Capacity : " << test_ft3.capacity() << std::endl;
     i = 0;
@@ -251,5 +251,6 @@ int main()
         std::cout << i++ << ": *it_ft: " << *it_ft44 << std::endl;
     }
     i = 0;
+
     return (0);
 }

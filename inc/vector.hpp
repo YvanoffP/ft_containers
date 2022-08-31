@@ -424,36 +424,39 @@ namespace ft {
 
         void insert(iterator position, size_type n, const value_type &val)
         {
-            if (this->size() + n > this->capacity()) {
-                size_type i = 0;
-                iterator it_tmp = this->begin();
+            if (_size + n > _capacity)
+            {
+                size_type distance = ft::distance(this->begin(), position);
                 if (this->size() + n > this->capacity() * 2)
                     this->_capacity = n + this->size();
                 else if (this->size() + n > this->capacity())
                     this->_capacity *= 2;
                 pointer tmp = _alloc.allocate(this->capacity());
-                _size += n;
-                for (size_type j = 0; j < this->size(); j++) {
-                    if (it_tmp == position)
-                        for (size_type j = 0; j < n; j++)
-                            _alloc.construct(tmp + i++, val);
-                    _alloc.construct(tmp + i++, *(_vec + j));
-                    it_tmp++;
-                }
+                for (size_type i = 0; i < distance; i++)
+                    _alloc.construct(tmp + i, *(_vec + i));
+                for (size_type i = 0; i < n; i++)
+                    _alloc.construct(tmp + i + distance, val);
+                for (size_type i = 0; i < this->size(); i++)
+                    _alloc.construct(tmp + distance + n + i, *(_vec + distance + i));
+                _size = this->size() + n;
                 for (size_type j = 0; j < this->size(); j++)
                     _alloc.destroy(_vec + j);
                 _alloc.deallocate(_vec, _capacity);
                 _vec = tmp;
-            } else {
-                iterator old_end = this->end();
+            }
+            else
+            {
+                size_type new_end = _size + n;
+                for (iterator end_scope = this->end(); end_scope != position; end_scope--)
+                {
+                    _alloc.construct(_vec + new_end--, *end_scope);
+                }
+                _alloc.construct(_vec + new_end, *position);
+                for (size_type i = 0;i < n; i++)
+                {
+                    *(position + i) = val;
+                }
                 _size += n;
-                for (iterator new_end = this->end(); old_end != position - 1; new_end--) {
-                    *new_end = *old_end;
-                    old_end--;
-                }
-                for (size_type i = 0; i < n; i++) {
-                    *position++ = val;
-                }
             }
         }
 
