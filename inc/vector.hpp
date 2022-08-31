@@ -394,24 +394,34 @@ namespace ft {
 
         iterator insert(iterator position, const value_type &val)
         {
-            if (this->size() + 1 > this->capacity()) {
-                size_type i = 0;
-                iterator it_tmp = this->begin();
-                size_type ret = position - this->begin();
-                pointer tmp = _alloc.allocate(this->capacity() * 2);
-                _size += 1;
-                for (size_type j = 0; j < this->size(); j++) {
-                    if (it_tmp == position)
-                        _alloc.construct(tmp + i++, val);
-                    _alloc.construct(tmp + i++, *(_vec + j));
-                    it_tmp++;
+            if (this->size() + 1 > this->capacity())
+            {
+                if (this->size() == 0)
+                {
+                    this->_size = 1;
+                    this->_capacity = 1;
+                    this->_vec = _alloc.allocate(1);
+                    _alloc.construct(this->_vec, val);
                 }
-                for (size_type j = 0; j < this->size(); j++)
-                    _alloc.destroy(_vec + j);
-                _alloc.deallocate(_vec, _capacity);
-                _capacity *= 2;
-                _vec = tmp;
-                return iterator(_vec + ret);
+                else {
+                    size_type i = 0;
+                    iterator it_tmp = this->begin();
+                    size_type ret = position - this->begin();
+                    pointer tmp = _alloc.allocate(this->capacity() * 2);
+                    _size += 1;
+                    for (size_type j = 0; j < this->size(); j++) {
+                        if (it_tmp == position)
+                            _alloc.construct(tmp + i++, val);
+                        _alloc.construct(tmp + i++, *(_vec + j));
+                        it_tmp++;
+                    }
+                    for (size_type j = 0; j < this->size(); j++)
+                        _alloc.destroy(_vec + j);
+                    _alloc.deallocate(_vec, _capacity);
+                    _capacity *= 2;
+                    _vec = tmp;
+                    return iterator(_vec + ret);
+                }
             } else {
                 _size += 1;
                 for (iterator it = this->end(); it != position; it--) {
