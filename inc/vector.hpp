@@ -143,17 +143,40 @@ namespace ft {
          * if the value targeted is greater than _max_capacity, it just respects the allocation calcul.
          * if the resize is smaller than the size, it destroys until it reaches the size wanted
          */
-        void resize(size_type n, value_type val = value_type()) {
+        void resize (size_type n, value_type val = value_type())
+        {
             if (n > this->max_size())
-                throw ::std::length_error("The requested size is too high");
-            else if (n < this->size()) {
-                for (size_type j = _size; _size > n; j--) {
-                    _alloc.destroy(_vec + j);
-                    _size--;
+                throw (std::length_error("The requested size is too high"));
+            else if (n <= this->_size)
+            {
+                for (size_type i = n; i < this->_size; i++) {
+                    _alloc.destroy(_vec + i);
                 }
             }
-            else
-                this->insert(this->end(), n - this->size(), val);
+            else if (n > this->_size)
+            {
+                pointer tmp = _alloc.allocate(n);
+
+                for (size_type i = 0; i < this->_size; i++) {
+                    _alloc.construct(tmp + i, *(_vec + i));
+                }
+
+                for (size_type i = this->_size; i < n; i++) {
+                    _alloc.construct(tmp + i, val);
+                }
+
+                this->clear();
+                _alloc.deallocate(this->_vec, this->_capacity);
+                this->_vec = tmp;
+
+                /* Adapt capacity if n > capacity
+                 * Otherwise we keep capacity */
+                if (n > this->_capacity * 2)
+                    this->_capacity = n;
+                else if (n > this->_capacity)
+                    this->_capacity *= 2;
+            }
+            this->_size = n;
         }
 
         /*
@@ -441,41 +464,7 @@ namespace ft {
                      InputIterator last)
         {
             size_type n = ft::distance(first, last);
-            if (this->size() + n > this->capacity())
-            {
-                size_type i = 0;
-                iterator it_tmp = this->begin();
-                if (this->size() + n > this->capacity() * 2)
-                    this->_capacity = n + this->size();
-                else if (this->size() + n > this->capacity())
-                    this->_capacity *= 2;
-                pointer tmp = _alloc.allocate(this->capacity());
-                _size += n;
-                for (size_type j = 0; j < this->size(); j++) {
-                    if (it_tmp == position)
-                        for (size_type j = 0; j < n; j++)
-                            _alloc.construct(tmp + i++, *first++);
-                    _alloc.construct(tmp + i++, *(_vec + j));
-                    it_tmp++;
-                }
-                for (size_type j = 0; j < this->size(); j++)
-                    _alloc.destroy(_vec + j);
-                _alloc.deallocate(_vec, _capacity);
-                _vec = tmp;
-            }
-            else
-            {
-                iterator old_end = this->end();
-                _size += n;
-                for (iterator new_end = this->end(); old_end != position - 1; new_end--)
-                {
-                    *new_end = *old_end;
-                    old_end--;
-                }
-                for (size_type i = 0; i < n; i++) {
-                    *position++ = *first++;
-                }
-            }
+
         }
 
             /*
