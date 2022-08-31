@@ -290,18 +290,19 @@ namespace ft {
          * Add val after the last position in the vector size
          * if size > capacity, a resize is done
          */
-        void push_back(const value_type &val) {
-            _size++;
-            if (_size > _capacity) {
-                if (_capacity == 0) {
-                    _capacity = 1;
-                    _vec = _alloc.allocate(1);
-                    this->reserve(1);
-                } else
-                    this->reserve(_capacity * 2);
-            }
-            _alloc.construct(_vec + _size - 1, val);
-        }
+         void push_back (const value_type& val)
+         {
+             // TODO : Ternaire ici non ??
+             if (this->_capacity == 0)
+             {
+                 this->_capacity = 1;
+                 this->reserve(this->capacity());
+             }
+             else if (this->_size + 1 > this->capacity())
+                 this->reserve(this->capacity() * 2);
+             _alloc.construct((this->_vec + this->size()), val);
+             this->_size += 1;
+         }
 
         template<class InputIterator>
         /*
