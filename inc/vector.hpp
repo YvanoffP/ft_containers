@@ -370,7 +370,8 @@ namespace ft {
             return (first);
         }
 
-        iterator insert(iterator position, const value_type &val) {
+        iterator insert(iterator position, const value_type &val)
+        {
             if (this->size() + 1 > this->capacity()) {
                 size_type i = 0;
                 iterator it_tmp = this->begin();
