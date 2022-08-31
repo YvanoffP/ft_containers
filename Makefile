@@ -4,7 +4,7 @@ OBJS			= $(SRCS:.cpp=.o)
 
 CXX				= clang++ #g++-11
 RM				= rm -f
-CXXFLAGS		= -Wall -Wextra -Werror -pedantic -I.
+CXXFLAGS		= -Wall -Wextra -Werror -pedantic -g -I.
 CPP_FLAGS       = -std=c++98
 
 NAME			= containers

@@ -281,8 +281,8 @@ namespace ft {
                         _alloc.destroy(_vec + j);
                     _alloc.deallocate(_vec, _capacity);
                 }
-                _capacity = n;
-                _vec = tmp;
+                this->_capacity = n;
+                this->_vec = tmp;
             }
         }
 
@@ -294,8 +294,7 @@ namespace ft {
          {
              if (this->_capacity == 0)
              {
-                 this->_capacity = 1;
-                 this->reserve(this->capacity());
+                 this->reserve(1);
              }
              else if (this->_size + 1 > this->capacity())
                  this->reserve(this->capacity() * 2);
