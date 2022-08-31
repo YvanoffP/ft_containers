@@ -41,7 +41,7 @@ namespace ft {
     private:
         size_t _size;
         size_t _capacity;
-        pointer _vector;
+        pointer _vec;
         allocator_type _alloc;
 
 
@@ -51,14 +51,14 @@ namespace ft {
          */
 
         explicit vector(const allocator_type &alloc = allocator_type()) :
-                _size(0), _capacity(0), _vector(nullptr), _alloc(alloc) {}
+                _size(0), _capacity(0), _vec(nullptr), _alloc(alloc) {}
 
         explicit vector(size_type n, const value_type &val = value_type(),
                         const allocator_type &alloc = allocator_type()) :
-                _size(0), _capacity(n), _vector(nullptr), _alloc(alloc) {
-            _vector = _alloc.allocate(n);
+                _size(0), _capacity(n), _vec(nullptr), _alloc(alloc) {
+            _vec = _alloc.allocate(n);
             for (size_t j = 0; j < n; j++) {
-                _alloc.construct((_vector + j), val);
+                _alloc.construct((_vec + j), val);
                 _size++;
             }
         }
@@ -71,26 +71,26 @@ namespace ft {
             difference_type n = ft::distance(first, last);
             _alloc.allocate(n);
             for (size_t j = 0; n > 0; n--) {
-                _alloc.construct((_vector + j++), *first++);
+                _alloc.construct((_vec + j++), *first++);
                 _size++;
             }
         }
 
         ~vector() {
             this->clear();
-            _alloc.deallocate(_vector, _capacity);
+            _alloc.deallocate(_vec, _capacity);
         }
 
         /*
         * Iterator Returns ----------------------------------------------------------------------------------------
         */
-        iterator begin(void) { return _vector; }
+        iterator begin(void) { return _vec; }
 
-        const_iterator begin(void) const { return _vector; }
+        const_iterator begin(void) const { return _vec; }
 
-        iterator end(void) { return (_vector + _size); }
+        iterator end(void) { return (_vec + _size); }
 
-        const_iterator end(void) const { return (_vector + _size); }
+        const_iterator end(void) const { return (_vec + _size); }
 
         /*
          * Reverse Iterator Returns --------------------------------------------------------------------------------
@@ -144,7 +144,7 @@ namespace ft {
                 throw ::std::length_error("The requested size is too high");
             else if (n < this->size()) {
                 for (size_t j = _size; _size > n; j--) {
-                    _alloc.destroy(_vector + j);
+                    _alloc.destroy(_vec + j);
                     _size--;
                 }
             }
@@ -160,19 +160,19 @@ namespace ft {
         /*
         * Element access ------------------------------------------------------------------------------------------
         */
-        value_type *data(void) { return (this->_vector); }
+        value_type *data(void) { return (this->_vec); }
 
-        const value_type *data(void) const { return (this->_vector); }
-
-        /*
-         * Returns a reference to the element at position n in the vector
-         */
-        reference operator[](size_type n) { return (*(_vector + n)); }
+        const value_type *data(void) const { return (this->_vec); }
 
         /*
          * Returns a reference to the element at position n in the vector
          */
-        const_reference operator[](size_type n) const { return (*(_vector + n)); }
+        reference operator[](size_type n) { return (*(_vec + n)); }
+
+        /*
+         * Returns a reference to the element at position n in the vector
+         */
+        const_reference operator[](size_type n) const { return (*(_vec + n)); }
 
         /*
          * Reduces the capacity of the container to fit it's size and destroys all elements beyond it's capacity
@@ -181,12 +181,12 @@ namespace ft {
             if (this->_size < this->_capacity) {
                 pointer tmp = _alloc.allocate(this->_size);
                 for (size_t j = 0; j < this->size(); j++)
-                    _alloc.construct(tmp + j, *(_vector + j));
+                    _alloc.construct(tmp + j, *(_vec + j));
                 for (size_t j = 0; j < this->size(); j++)
-                    _alloc.destroy(_vector + j);
-                _alloc.deallocate(_vector, _capacity);
+                    _alloc.destroy(_vec + j);
+                _alloc.deallocate(_vec, _capacity);
                 this->_capacity = this->_size;
-                this->_vector = tmp;
+                this->_vec = tmp;
             }
         }
 
@@ -222,18 +222,18 @@ namespace ft {
          * Unlike begin, which returns an iterator to the first element
          * non-const and const version :
          */
-        reference front() { return (*_vector); }
+        reference front() { return (*_vec); }
 
-        const_reference front() const { return (*_vector); }
+        const_reference front() const { return (*_vec); }
 
         /*
          * Returns a reference to the last element in the vector
          * Unlike end, which returns an iterator to the last element
          * non-const and const version :
          */
-        reference back() { return (*(_vector + _size)); }
+        reference back() { return (*(_vec + _size)); }
 
-        const_reference back() const { return (*(_vector + _size)); }
+        const_reference back() const { return (*(_vec + _size)); }
         /*
          * MODIFIERS ---------------------------------------------------------------
          */
@@ -247,15 +247,15 @@ namespace ft {
                 throw ::std::length_error("The requested size is too high");
             if (n > this->_capacity) {
                 pointer tmp = _alloc.allocate(n);
-                if (_vector != nullptr) {
+                if (_vec != nullptr) {
                     for (size_type j = 0; j < this->size(); j++)
-                        _alloc.construct(tmp + j, *(_vector + j));
+                        _alloc.construct(tmp + j, *(_vec + j));
                     for (size_type j = 0; j < this->size(); j++)
-                        _alloc.destroy(_vector + j);
-                    _alloc.deallocate(_vector, _capacity);
+                        _alloc.destroy(_vec + j);
+                    _alloc.deallocate(_vec, _capacity);
                 }
                 _capacity = n;
-                _vector = tmp;
+                _vec = tmp;
             }
         }
 
@@ -268,12 +268,12 @@ namespace ft {
             if (_size > _capacity) {
                 if (_capacity == 0) {
                     _capacity = 1;
-                    _vector = _alloc.allocate(1);
+                    _vec = _alloc.allocate(1);
                     this->reserve(1);
                 } else
                     this->reserve(_capacity * 2);
             }
-            _alloc.construct(_vector + _size - 1, val);
+            _alloc.construct(_vec + _size - 1, val);
         }
 
         template<class InputIterator>
@@ -287,12 +287,12 @@ namespace ft {
             size_type n = ft::distance(first, last);
             this->clear();
             if (n > _capacity) {
-                _alloc.deallocate(_vector, _capacity);
-                _vector = _alloc.allocate(n);
+                _alloc.deallocate(_vec, _capacity);
+                _vec = _alloc.allocate(n);
                 _capacity = n;
             }
             for (size_type j = 0; j < n; j++) {
-                _alloc.construct(_vector + j, first++);
+                _alloc.construct(_vec + j, first++);
             }
             _size = n;
 
@@ -306,12 +306,12 @@ namespace ft {
         void assign(size_type n, const value_type &val) {
             this->clear();
             if (n > _capacity) {
-                _alloc.deallocate(_vector, _capacity);
-                _vector = _alloc.allocate(n);
+                _alloc.deallocate(_vec, _capacity);
+                _vec = _alloc.allocate(n);
                 _capacity = n;
             }
             for (size_type j = 0; j < n; j++) {
-                _alloc.construct(_vector + j, val);
+                _alloc.construct(_vec + j, val);
             }
             _size = n;
         }
@@ -323,7 +323,7 @@ namespace ft {
          */
         void clear(void) {
             for (size_type j = 0; j != _size; j++)
-                _alloc.destroy(_vector + j);
+                _alloc.destroy(_vec + j);
             _size = 0;
         }
 
@@ -376,15 +376,15 @@ namespace ft {
                 for (size_type j = 0; j < this->size(); j++) {
                     if (it_tmp == position)
                         _alloc.construct(tmp + i++, val);
-                    _alloc.construct(tmp + i++, *(_vector + j));
+                    _alloc.construct(tmp + i++, *(_vec + j));
                     it_tmp++;
                 }
                 for (size_type j = 0; j < this->size(); j++)
-                    _alloc.destroy(_vector + j);
-                _alloc.deallocate(_vector, _capacity);
+                    _alloc.destroy(_vec + j);
+                _alloc.deallocate(_vec, _capacity);
                 _capacity *= 2;
-                _vector = tmp;
-                return iterator(_vector + ret);
+                _vec = tmp;
+                return iterator(_vec + ret);
             } else {
                 _size += 1;
                 for (iterator it = this->end(); it != position; it--) {
@@ -410,13 +410,13 @@ namespace ft {
                     if (it_tmp == position)
                         for (size_type j = 0; j < n; j++)
                             _alloc.construct(tmp + i++, val);
-                    _alloc.construct(tmp + i++, *(_vector + j));
+                    _alloc.construct(tmp + i++, *(_vec + j));
                     it_tmp++;
                 }
                 for (size_type j = 0; j < this->size(); j++)
-                    _alloc.destroy(_vector + j);
-                _alloc.deallocate(_vector, _capacity);
-                _vector = tmp;
+                    _alloc.destroy(_vec + j);
+                _alloc.deallocate(_vec, _capacity);
+                _vec = tmp;
             } else {
                 iterator old_end = this->end();
                 _size += n;
@@ -450,13 +450,13 @@ namespace ft {
                     if (it_tmp == position)
                         for (size_type j = 0; j < n; j++)
                             _alloc.construct(tmp + i++, *first++);
-                    _alloc.construct(tmp + i++, *(_vector + j));
+                    _alloc.construct(tmp + i++, *(_vec + j));
                     it_tmp++;
                 }
                 for (size_type j = 0; j < this->size(); j++)
-                    _alloc.destroy(_vector + j);
-                _alloc.deallocate(_vector, _capacity);
-                _vector = tmp;
+                    _alloc.destroy(_vec + j);
+                _alloc.deallocate(_vec, _capacity);
+                _vec = tmp;
             }
             else
             {
@@ -485,16 +485,16 @@ namespace ft {
 
                 size_t tmp_size = x._size;
                 size_t tmp_capacity = x._capacity;
-                pointer tmp_vector = x._vector;
+                pointer tmp_vec = x._vec;
                 allocator_type tmp_alloc = x._alloc;
 
                 x._size = this->_size;
-                x._vector = this->_vector;
+                x._vec = this->_vec;
                 x._capacity = this->_capacity;
                 x._alloc = this->_alloc;
 
                 this->_size = tmp_size;
-                this->_vector = tmp_vector;
+                this->_vec = tmp_vec;
                 this->_capacity = tmp_capacity;
                 this->_alloc = tmp_alloc;
             }
