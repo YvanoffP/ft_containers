@@ -55,11 +55,11 @@ namespace ft {
         //TODO: copy contructor ptetre ? naaaaan
 
         explicit vector(const allocator_type &alloc = allocator_type()) :
-                _size(0), _capacity(0), _vec(nullptr), _alloc(alloc) {}
+                _size(0), _capacity(0), _vec(NULL), _alloc(alloc) {}
 
         explicit vector(size_type n, const value_type &val = value_type(),
                         const allocator_type &alloc = allocator_type()) :
-                _size(0), _capacity(n), _vec(nullptr), _alloc(alloc) {
+                _size(0), _capacity(n), _vec(NULL), _alloc(alloc) {
             _vec = _alloc.allocate(n);
             for (size_type j = 0; j < n; j++) {
                 _alloc.construct((_vec + j), val);
@@ -279,7 +279,7 @@ namespace ft {
                 throw ::std::length_error("The requested size is too high");
             if (n > this->_capacity) {
                 pointer tmp = _alloc.allocate(n);
-                if (_vec != nullptr) {
+                if (_vec != NULL) {
                     for (size_type j = 0; j < this->size(); j++)
                         _alloc.construct(tmp + j, *(_vec + j));
                     for (size_type j = 0; j < this->size(); j++)
@@ -449,6 +449,7 @@ namespace ft {
                         _alloc.construct(this->_vec + i, val);
                 }
                 else {
+                    size_type old_cap = this->capacity();
                     size_type distance = ft::distance(this->begin(), position);
                     if (this->size() + n > this->capacity() * 2)
                         this->_capacity = n + this->size();
@@ -459,12 +460,12 @@ namespace ft {
                         _alloc.construct(tmp + i, *(_vec + i));
                     for (size_type i = 0; i < n; i++)
                         _alloc.construct(tmp + i + distance, val);
-                    for (size_type i = 0; i < this->size(); i++)
+                    for (size_type i = 0; i + distance < this->size(); i++)
                         _alloc.construct(tmp + distance + n + i, *(_vec + distance + i));
                     for (size_type j = 0; j < this->size(); j++)
                         _alloc.destroy(_vec + j);
                     _size = this->size() + n;
-                    _alloc.deallocate(_vec, _capacity);
+                    _alloc.deallocate(_vec, old_cap);
                     _vec = tmp;
                 }
             }
@@ -502,6 +503,7 @@ namespace ft {
                         _alloc.construct(this->_vec + i, *first++);
                 }
                 else {
+                    size_type old_cap = this->capacity();
                     if (this->size() + n > this->capacity() * 2)
                         this->_capacity = n + this->size();
                     else
@@ -511,12 +513,12 @@ namespace ft {
                         _alloc.construct(tmp + i, *(_vec + i));
                     for (size_type i = 0; i < n; i++)
                         _alloc.construct(tmp + i + distance, *first++);
-                    for (size_type i = 0; i < this->size(); i++)
+                    for (size_type i = 0; i + distance < this->size(); i++)
                         _alloc.construct(tmp + distance + n + i, *(_vec + distance + i));
                     for (size_type j = 0; j < this->size(); j++)
                         _alloc.destroy(_vec + j);
                     _size = this->size() + n;
-                    _alloc.deallocate(_vec, _capacity);
+                    _alloc.deallocate(_vec, old_cap);
                     _vec = tmp;
                 }
             }
@@ -541,24 +543,25 @@ namespace ft {
              * Swap the elements of the vector passed in the parameter with the
              * vector calling the method
              */
-            void swap (vector& x)
+            void swap (vector &x)
             {
-                if (x == *this)
-                    return;
-                size_type tmp_size = x._size;
-                size_type tmp_capacity = x._capacity;
-                pointer tmp_vec = x._vec;
-                allocator_type tmp_alloc = x._alloc;
+                if (*this == x)
+                    return ;
 
-                x._size = this->_size;
-                x._vec = this->_vec;
-                x._capacity = this->_capacity;
+                allocator_type  _alloc_tmp = x._alloc;
+                pointer         _vec_tmp = x._vec;
+                size_type       _size_tmp = x._size;
+                size_type       _capacity_tmp = x._capacity;
+
                 x._alloc = this->_alloc;
+                x._vec = this->_vec;
+                x._size = this->_size;
+                x._capacity = this->_capacity;
 
-                this->_size = tmp_size;
-                this->_vec = tmp_vec;
-                this->_capacity = tmp_capacity;
-                this->_alloc = tmp_alloc;
+                this->_alloc = _alloc_tmp;
+                this->_vec = _vec_tmp;
+                this->_size = _size_tmp;
+                this->_capacity = _capacity_tmp;
             }
 
     };

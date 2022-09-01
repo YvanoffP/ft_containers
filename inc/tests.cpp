@@ -8,7 +8,38 @@
 #include "./is_integral.hpp"
 #include "./vector.hpp"
 #include <vector>
+#include <memory>
 //#include "./map.hpp"
+
+
+class B {
+public:
+    char *l;
+    int i;
+    B():l(NULL), i(1) {};
+    B(const int &ex) {
+        this->i = ex;
+        this->l = new char('a');
+    };
+    virtual ~B() {
+        delete this->l;
+        this->l = NULL;
+    };
+};
+
+class A : public B {
+public:
+    A():B(){};
+    A(const B* ex){
+        this->l = new char(*(ex->l));
+        this->i = ex->i;
+        if (ex->i == -1) throw "n";
+    }
+    ~A() {
+        delete this->l;
+        this->l = NULL;
+    };
+};
 
 template <typename Ite_1, typename Ite_2>
 void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
@@ -196,6 +227,47 @@ int main()
     std::cout << "Size : " << test_std1.size() << std::endl;
     std::cout << "Capacity : " << test_std1.capacity() << std::endl;
 
+
+    //--------------------------------------------------------------------------
+    std::cout << "MAIN DE LA DARONNE DE MES 2" << std::endl;
+    std::vector<int> v;
+    ft::vector<int> tmp;
+    ft::vector<int> vector;
+    tmp.assign(260, 1);
+    vector.assign(420, 1);
+
+    vector.insert(vector.end() - 100, tmp.begin(), tmp.end());
+
+    v.push_back(vector[3]);
+
+    v.push_back(vector.size());
+
+    v.push_back(vector.capacity());
+
+    std::unique_ptr<B> k2(new B(3));
+    std::unique_ptr<B> k3(new B(4));
+    std::unique_ptr<B> k4(new B(-1));
+    ft::vector<A> vv;
+    ft::vector<B*> v1;
+
+    v1.push_back(&(*k2));
+    v1.push_back(&(*k3));
+    v1.push_back(&(*k4));
+
+    for (ft::vector<B*>::iterator it = v1.begin(); it != v1.end(); it ++) {
+        std::cout << *it << std::endl;
+    }
+
+    try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
+    catch (...) {
+        ft::vector<A>::iterator it = vv.begin();
+        std::cout << vv.size() << " " << vv.capacity() << std::endl;
+        std::cout << v1.size() << " " << v1.capacity() << std::endl;
+        //std::cout << *it << std::endl;
+        v.push_back(vv.size());
+        v.push_back(vv.capacity());
+        std::cout << "allo" << std::cout;
+    }
     //--------------------------------------------------------------------------
     /*std::cout << "---------------------------insert()---------------------------" << std::endl;
     std::vector<int> test_std3;
@@ -228,7 +300,7 @@ int main()
     }*/
     i = 0;
 
-    std::cout << "---------------------------insert()---------------------------" << std::endl;
+   /* std::cout << "---------------------------insert()---------------------------" << std::endl;
     ft::vector<int> test_ft3;
     ft::vector<int>::iterator it_ft_insert;
     ft::vector<int>::iterator it_ft_insert_first;
@@ -283,7 +355,7 @@ int main()
     for(ft::vector<int>::iterator it_ft44 = test_ft3.begin(); it_ft44 != test_ft3.end(); ++it_ft44) {
         std::cout << i++ << ": *it_ft: " << *it_ft44 << std::endl;
     }
-    i = 0;
+    i = 0;*/
 
     // --------------------------------------------------------------------------------------------------------------
 
