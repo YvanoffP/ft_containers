@@ -25,7 +25,7 @@ namespace ft {
         typedef ft::random_access_iterator<value_type>          iterator;
         typedef ft::random_access_iterator<const value_type>    const_iterator;
         typedef ft::reverse_iterator<iterator>                  reverse_iterator;
-        typedef ft::reverse_iterator<const iterator>            const_reverse_iterator;
+        typedef ft::reverse_iterator<const_iterator>            const_reverse_iterator;
         typedef ft::iterator_traits<iterator>                   difference_type;
         typedef size_t                                          size_type;
 
@@ -315,13 +315,12 @@ namespace ft {
             if (n > _capacity) {
                 _alloc.deallocate(_vec, _capacity);
                 _vec = _alloc.allocate(n);
-                _capacity = n;
+                this->_capacity = n;
             }
             for (size_type j = 0; j < n; j++) {
                 _alloc.construct(_vec + j, first++);
             }
-            _size = n;
-
+            this->_size = n;
         }
 
         /*
@@ -334,12 +333,12 @@ namespace ft {
             if (n > _capacity) {
                 _alloc.deallocate(_vec, _capacity);
                 _vec = _alloc.allocate(n);
-                _capacity = n;
+                this->_capacity = n;
             }
             for (size_type j = 0; j < n; j++) {
                 _alloc.construct(_vec + j, val);
             }
-            _size = n;
+            this->_size = n;
         }
 
         /*
