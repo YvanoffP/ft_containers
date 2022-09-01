@@ -30,14 +30,6 @@ namespace ft
         template <class Iter>
         reverse_iterator (const reverse_iterator<Iter> &rev_it) : _it(rev_it.base()) {}
 
-        template <class Iter>
-        reverse_iterator &operator=(reverse_iterator<Iter> &rev_it) {
-            if (this == &rev_it)
-                return (*this);
-            this->_it = rev_it.base();
-            return (*this);
-        }
-
         /* Destructor */
         virtual ~reverse_iterator() {}
 
