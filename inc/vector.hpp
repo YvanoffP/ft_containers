@@ -323,7 +323,7 @@ namespace ft {
                 this->_capacity = n;
             }
             for (size_type j = 0; j < n; j++) {
-                _alloc.construct(_vec + j, first++);
+                _alloc.construct(_vec + j, *first++);
             }
             this->_size = n;
         }
@@ -575,14 +575,16 @@ namespace ft {
     template <class T, class Alloc>
     bool operator<(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
     {
-        typename vector<T>::iterator beg_right = rhs.begin();
+        typename vector<T>::const_iterator beg_right = rhs.begin();
 
-        for (typename vector<T>::iterator it = lhs.begin(); it != lhs.end(); it++) {
-            if (*it >= *beg_right)
+        for (typename vector<T>::const_iterator it = lhs.begin(); it != lhs.end(); it++) {
+            if (*beg_right < *it || beg_right == rhs.end())
                 return (false);
+            if (*it < *beg_right)
+                return (true);
             beg_right++;
         }
-        return (true);
+        return (beg_right != rhs.end());
     }
 
     /*

@@ -10,6 +10,7 @@
 #include <vector>
 //#include "./map.hpp"
 
+
 int main()
 {
     int i = 0;
@@ -277,29 +278,71 @@ int main()
     i = 0;
     
     // --------------------------------------------------------------------------------------------------------------
-    ft::vector<int> vct(7);
 
-    for (unsigned long int i = 0; i < vct.size(); ++i)
     {
-        vct.at(i) = (vct.size() - i) * 3;
-        std::cout << "vct.at(): " << vct.at(i) << " | ";
-        std::cout << "vct[]: " << vct[i] << std::endl;
-    }
+        const int size = 5;
+        ft::vector<int> vct(size);
+        ft::vector<int>::reverse_iterator it = vct.rbegin();
+        ft::vector<int>::const_reverse_iterator ite = vct.rbegin();
 
-    ft::vector<int> const vct_c(vct);
+        for (int i = 0; i < size; ++i)
+            it[i] = (size - i) * 5;
 
-    std::cout << "front(): " << vct.front() << " " << vct_c.front() << std::endl;
-    std::cout << "back(): " << vct.back() << " " <<  vct_c.back() << std::endl;
+        it = it + 5;
+        it = 1 + it;
+        it = it - 4;
+        std::cout << *(it += 2) << std::endl;
+        std::cout << *(it -= 1) << std::endl;
 
-    try {
-        vct.at(10) = 42;
+        *(it -= 2) = 42;
+        *(it += 2) = 21;
+
+        std::cout << "const_ite +=/-=: " << *(ite += 2) << " | " << *(ite -= 2) << std::endl;
+
+        std::cout << "(it == const_it): " << (ite == it) << std::endl;
+        std::cout << "(const_ite - it): " << (ite - it) << std::endl;
+        std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
     }
-    catch (std::out_of_range &e) {
-        std::cout << "Catch out_of_range exception!" << std::endl;
-    }
-    catch (std::exception &e) {
-        std::cout << "Catch exception: " << e.what() << std::endl;
+    {
+        const int size = 5;
+        ft::vector<int> vct(size);
+        ft::vector<int>::reverse_iterator it(vct.rbegin());
+        ft::vector<int>::const_reverse_iterator ite(vct.rend());
+
+        for (int i = 1; it != ite; ++i)
+            *it++ = (i * 7);
+
+        it = vct.rbegin();
+        ite = vct.rbegin();
+
+        std::cout << *(++ite) << std::endl;
+        std::cout << *(ite++) << std::endl;
+        std::cout << *ite++ << std::endl;
+        std::cout << *++ite << std::endl;
+
+        it->m();
+        ite->m();
+
+        std::cout << *(++it) << std::endl;
+        std::cout << *(it++) << std::endl;
+        std::cout << *it++ << std::endl;
+        std::cout << *++it << std::endl;
+
+        std::cout << *(--ite) << std::endl;
+        std::cout << *(ite--) << std::endl;
+        std::cout << *--ite << std::endl;
+        std::cout << *ite-- << std::endl;
+
+        (*it).m();
+        (*ite).m();
+
+        std::cout << *(--it) << std::endl;
+        std::cout << *(it--) << std::endl;
+        std::cout << *it-- << std::endl;
+        std::cout << *--it << std::endl;
     }
 
     return (0);
 }
+
+
