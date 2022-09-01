@@ -70,7 +70,7 @@ namespace ft {
         template<class InputIterator>
         vector(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
                const allocator_type &alloc = allocator_type())
-                : _alloc(alloc), _size(0), _capacity(0) {
+                : _size(0), _capacity(0), _alloc(alloc) {
             size_type n = ft::distance(first, last);
             _vec = _alloc.allocate(n);
             _size = n;
@@ -78,6 +78,11 @@ namespace ft {
             for (size_type j = 0; n > 0; n--) {
                 _alloc.construct((_vec + j++), *first++);
             }
+        }
+
+        vector (const vector &x) : _size(0), _capacity(0), _vec(NULL), _alloc(x._alloc)
+        {
+            *this = x;
         }
 
         ~vector() {
@@ -236,12 +241,12 @@ namespace ft {
 
         reference at(size_type n) {
             checkRange(n);
-            return ((*this)[n]);
+            return (this->_vec[n]);
         }
 
         const_reference at(size_type n) const {
             checkRange(n);
-            return ((*this)[n]);
+            return (this->_vec[n]);
         }
 
         /*
@@ -548,11 +553,9 @@ namespace ft {
     {
         if (lhs.size() != rhs.size())
             return (false);
-        typename vector<T>::iterator begin_right = rhs.begin();
-        for (typename vector<T>::iterator it = lhs.begin(); it != lhs.end(); it++) {
-            if (*it != *begin_right)
+        for (size_t i = 0; i < lhs.size(); i++) {
+            if (lhs[i] != rhs[i])
                 return (false);
-            begin_right++;
         }
         return (true);
     }
