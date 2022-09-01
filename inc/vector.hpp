@@ -523,10 +523,8 @@ namespace ft {
              */
             void swap (vector& x)
             {
-                //todo decomment when op == is done
-                //if (x == *this)
-                    //return;
-
+                if (x == *this)
+                    return;
                 size_type tmp_size = x._size;
                 size_type tmp_capacity = x._capacity;
                 pointer tmp_vec = x._vec;

@@ -85,7 +85,7 @@ namespace ft
         reverse_iterator operator--(int)
         {
             reverse_iterator tmp = *this;
-            ++(*this);
+            ++_it;
             return (tmp);
         }
 
@@ -96,7 +96,7 @@ namespace ft
          */
         reverse_iterator &operator++()
         {
-            _it--;
+            --_it;
             return (*this);
         }
 
@@ -106,7 +106,7 @@ namespace ft
          */
         reverse_iterator operator++(int) {
             reverse_iterator tmp = *this;
-            --(*this);
+            --_it;
             return (tmp);
         }
 
@@ -172,7 +172,7 @@ namespace ft
             const ft::reverse_iterator<Iterator> &lhs,
             const ft::reverse_iterator<Iterator> &rhs)
     {
-        return (lhs.base() == rhs.base());
+        return (rhs.base() == lhs.base());
     }
     /* (2) */
     template<typename T1, typename T2>
@@ -180,7 +180,7 @@ namespace ft
             const ft::reverse_iterator<T1> &lhs,
             const ft::reverse_iterator<T2> &rhs)
     {
-        return (lhs.base() == rhs.base());
+        return (rhs.base() == lhs.base());
     }
 
     /*
@@ -214,7 +214,7 @@ namespace ft
             const ft::reverse_iterator<Iterator> &lhs,
             const ft::reverse_iterator<Iterator> &rhs)
     {
-        return (lhs.base() >= rhs.base());
+        return (lhs.base() <= rhs.base());
     }
     /* (2) */
     template<typename T1, typename T2>
@@ -222,7 +222,7 @@ namespace ft
             const ft::reverse_iterator<T1> &lhs,
             const ft::reverse_iterator<T2> &rhs)
     {
-        return (lhs.base() >= rhs.base());
+        return (lhs.base() <= rhs.base());
     }
 
     /*
@@ -235,7 +235,7 @@ namespace ft
             const ft::reverse_iterator<Iterator> &lhs,
             const ft::reverse_iterator<Iterator> &rhs)
     {
-        return (lhs.base() <= rhs.base());
+        return (lhs.base() >= rhs.base());
     }
     /* (2) */
     template<typename T1, typename T2>
@@ -243,7 +243,7 @@ namespace ft
             const ft::reverse_iterator<T1> &lhs,
             const ft::reverse_iterator<T2> &rhs)
     {
-        return (lhs.base() <= rhs.base());
+        return (lhs.base() >= rhs.base());
     }
 
     /*
@@ -256,7 +256,7 @@ namespace ft
             const ft::reverse_iterator<Iterator> &lhs,
             const ft::reverse_iterator<Iterator> &rhs)
     {
-        return (lhs.base() > rhs.base());
+        return (lhs.base() < rhs.base());
     }
     /* (2) */
     template<typename T1, typename T2>
@@ -264,7 +264,7 @@ namespace ft
             const ft::reverse_iterator<T1> &lhs,
             const ft::reverse_iterator<T2> &rhs)
     {
-        return (lhs.base() > rhs.base());
+        return (lhs.base() < rhs.base());
     }
 
     /*
@@ -277,7 +277,7 @@ namespace ft
             const ft::reverse_iterator<Iterator> &lhs,
             const ft::reverse_iterator<Iterator> &rhs)
     {
-        return (lhs.base() < rhs.base());
+        return (lhs.base() > rhs.base());
     }
     /* (2) */
     template<typename T1, typename T2>
@@ -285,7 +285,7 @@ namespace ft
             const ft::reverse_iterator<T1> &lhs,
             const ft::reverse_iterator<T2> &rhs)
     {
-        return (lhs.base() < rhs.base());
+        return (lhs.base() > rhs.base());
     }
 
 
@@ -299,7 +299,7 @@ namespace ft
             const ft::reverse_iterator<T> &lhs,
             const ft::reverse_iterator<T> &rhs)
     {
-        return (lhs.base() - rhs.base());
+        return (rhs.base() - lhs.base());
     }
     /* (2) */
     template<typename T1, typename T2>
@@ -307,7 +307,7 @@ namespace ft
             const ft::reverse_iterator<T1> &lhs,
             const ft::reverse_iterator<T2> &rhs)
     {
-        return (lhs.base() - rhs.base());
+        return (rhs.base() - lhs.base());
     }
 
     /*
