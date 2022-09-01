@@ -440,23 +440,33 @@ namespace ft {
         {
             if (_size + n > _capacity)
             {
-                size_type distance = ft::distance(this->begin(), position);
-                if (this->size() + n > this->capacity() * 2)
-                    this->_capacity = n + this->size();
-                else if (this->size() + n > this->capacity())
-                    this->_capacity *= 2;
-                pointer tmp = _alloc.allocate(this->capacity());
-                for (size_type i = 0; i < distance; i++)
-                    _alloc.construct(tmp + i, *(_vec + i));
-                for (size_type i = 0; i < n; i++)
-                    _alloc.construct(tmp + i + distance, val);
-                for (size_type i = 0; i < this->size(); i++)
-                    _alloc.construct(tmp + distance + n + i, *(_vec + distance + i));
-                _size = this->size() + n;
-                for (size_type j = 0; j < this->size(); j++)
-                    _alloc.destroy(_vec + j);
-                _alloc.deallocate(_vec, _capacity);
-                _vec = tmp;
+                if (this->size() == 0)
+                {
+                    this->_size = n;
+                    this->_capacity = n;
+                    this->_vec = _alloc.allocate(n);
+                    for (size_type i = 0; i < n; i++)
+                        _alloc.construct(this->_vec + i, val);
+                }
+                else {
+                    size_type distance = ft::distance(this->begin(), position);
+                    if (this->size() + n > this->capacity() * 2)
+                        this->_capacity = n + this->size();
+                    else if (this->size() + n > this->capacity())
+                        this->_capacity *= 2;
+                    pointer tmp = _alloc.allocate(this->capacity());
+                    for (size_type i = 0; i < distance; i++)
+                        _alloc.construct(tmp + i, *(_vec + i));
+                    for (size_type i = 0; i < n; i++)
+                        _alloc.construct(tmp + i + distance, val);
+                    for (size_type i = 0; i < this->size(); i++)
+                        _alloc.construct(tmp + distance + n + i, *(_vec + distance + i));
+                    _size = this->size() + n;
+                    for (size_type j = 0; j < this->size(); j++)
+                        _alloc.destroy(_vec + j);
+                    _alloc.deallocate(_vec, _capacity);
+                    _vec = tmp;
+                }
             }
             else
             {
@@ -483,22 +493,32 @@ namespace ft {
             size_type distance = ft::distance(this->begin(), position);
             if (_size + n > _capacity)
             {
-                if (this->size() + n > this->capacity() * 2)
-                    this->_capacity = n + this->size();
-                else if (this->size() + n > this->capacity())
-                    this->_capacity *= 2;
-                pointer tmp = _alloc.allocate(this->capacity());
-                for (size_type i = 0; i < distance; i++)
-                    _alloc.construct(tmp + i, *(_vec + i));
-                for (size_type i = 0; i < n; i++)
-                    _alloc.construct(tmp + i + distance, *first++);
-                for (size_type i = 0; i < this->size(); i++)
-                    _alloc.construct(tmp + distance + n + i, *(_vec + distance + i));
-                _size = this->size() + n;
-                for (size_type j = 0; j < this->size(); j++)
-                    _alloc.destroy(_vec + j);
-                _alloc.deallocate(_vec, _capacity);
-                _vec = tmp;
+                if (this->size() == 0)
+                {
+                    this->_size = n;
+                    this->_capacity = n;
+                    this->_vec = _alloc.allocate(n);
+                    for (size_type i = 0; i < n; i++)
+                        _alloc.construct(this->_vec + i, *first++);
+                }
+                else {
+                    if (this->size() + n > this->capacity() * 2)
+                        this->_capacity = n + this->size();
+                    else if (this->size() + n > this->capacity())
+                        this->_capacity *= 2;
+                    pointer tmp = _alloc.allocate(this->capacity());
+                    for (size_type i = 0; i < distance; i++)
+                        _alloc.construct(tmp + i, *(_vec + i));
+                    for (size_type i = 0; i < n; i++)
+                        _alloc.construct(tmp + i + distance, *first++);
+                    for (size_type i = 0; i < this->size(); i++)
+                        _alloc.construct(tmp + distance + n + i, *(_vec + distance + i));
+                    _size = this->size() + n;
+                    for (size_type j = 0; j < this->size(); j++)
+                        _alloc.destroy(_vec + j);
+                    _alloc.deallocate(_vec, _capacity);
+                    _vec = tmp;
+                }
             }
             else
             {
@@ -576,7 +596,7 @@ namespace ft {
         typename vector<T>::const_iterator beg_right = rhs.begin();
 
         for (typename vector<T>::const_iterator it = lhs.begin(); it != lhs.end(); it++) {
-            if (*beg_right < *it || beg_right == rhs.end())
+            if (beg_right == rhs.end() || *beg_right < *it )
                 return (false);
             if (*it < *beg_right)
                 return (true);
