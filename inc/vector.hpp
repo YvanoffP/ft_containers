@@ -442,11 +442,11 @@ namespace ft {
             {
                 if (this->size() == 0)
                 {
-                    this->_size = n;
-                    this->_capacity = n;
                     this->_vec = _alloc.allocate(n);
                     for (size_type i = 0; i < n; i++)
                         _alloc.construct(this->_vec + i, val);
+                    this->_size = n;
+                    this->_capacity = n;
                 }
                 else {
                     size_type old_cap = this->capacity();
@@ -496,11 +496,12 @@ namespace ft {
             {
                 if (this->size() == 0)
                 {
-                    this->_size = n;
-                    this->_capacity = n;
+
                     this->_vec = _alloc.allocate(n);
                     for (size_type i = 0; i < n; i++)
                         _alloc.construct(this->_vec + i, *first++);
+                    this->_size = n;
+                    this->_capacity = n;
                 }
                 else {
                     size_type old_cap = this->capacity();
