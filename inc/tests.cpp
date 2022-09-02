@@ -266,7 +266,7 @@ int main()
         //std::cout << *it << std::endl;
         v.push_back(vv.size());
         v.push_back(vv.capacity());
-        std::cout << "allo" << std::cout;
+        //std::cout << "allo" << std::cout;
     }
     //--------------------------------------------------------------------------
     /*std::cout << "---------------------------insert()---------------------------" << std::endl;
