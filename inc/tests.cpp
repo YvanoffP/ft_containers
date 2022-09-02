@@ -468,6 +468,16 @@ int main()
         ft_eq_ope(it_mid, cit_1 - 3);*/
     }
 
+    {
+
+        ft::BST_Node<int> test;
+        ft::BST_Node<int> test2;
+
+        test.value = 12;
+        test2.value = 122;
+        test.left = &test2;
+        std::cout << test.left->value << std::endl;
+    }
     return (0);
 }
 

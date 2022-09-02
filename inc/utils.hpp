@@ -49,13 +49,6 @@ namespace ft {
                 left(NULL),
                 right(NULL)
         {}
-        BST_Node (BST_Node* parent = NULL,
-                  BST_Node* left = NULL, BST_Node* right = NULL):
-                value(),
-                parent(parent),
-                left(left),
-                right(right)
-        {}
 
         /*
          * Value copy node 
@@ -85,7 +78,7 @@ namespace ft {
          */
         BST_Node &operator=(const BST_Node& rhs)
         {
-            if (nd == *this)
+            if (rhs == *this)
                 return (*this);
 
             this->value = rhs.value;
