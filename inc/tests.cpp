@@ -9,6 +9,7 @@
 #include "./vector.hpp"
 #include <vector>
 #include <memory>
+#include "bst.hpp"
 //#include "./map.hpp"
 
 
@@ -470,13 +471,7 @@ int main()
 
     {
 
-        ft::BST_Node<int> test;
-        ft::BST_Node<int> test2;
-
-        test.value = 12;
-        test2.value = 122;
-        test.left = &test2;
-        std::cout << test.left->value << std::endl;
+        ft::Binary_search_tree<int, int> test;
     }
     return (0);
 }

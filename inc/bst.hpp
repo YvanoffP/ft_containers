@@ -4,21 +4,20 @@
 # include "utils.hpp"
 
 namespace ft {
-    template < class Key, class T, class Compare = std::less<Key>,
-            class Alloc = std::allocator<ft::pair<const Key,T> > >
+    template < class T, class Compare = std::less<T>, class Node = ft::BST_Node<T>,
+            class Alloc = std::allocator<T>, class Node_Alloc = std::allocator<Node> >
     class Binary_search_tree
     {
         public:
-            typedef Key                             key_type;
             typedef T                               value_type;
-            typedef BST_Node<value_type>            node;
+            typedef Node                            node;
             typedef Alloc                           allocator_type;
-            typedef BstIterator<value_type>         iterator;
-            typedef BstIterator<const value_type>   const_iterator;
+            typedef Node_Alloc                      node_alloc;
+
 
         private:
-            allocator_type  _alloc;
-            node            *_root;
+            node_alloc  _alloc;
+            node        *_root;
         /*
          * BINARY SEARCH ITERATOR =========================================================
          */
@@ -27,14 +26,11 @@ namespace ft {
                 : public ft::iterator<ft::bidirectional_iterator_tag, P> {
             public:
 
-                typedef typename P                                  value_type;
-                typedef P&                                          reference;
-                typedef P*                                          pointer;
-                typedef typename BST_Node<value_type>               node;
-                typedef typename Binary_search_tree<value_type>     tree;
+                typedef typename P::value_type             value_type;
+                typedef BST_Node<value_type>               node;
 
                 BstIterator();
-                BstIterator(const node *n, const tree *t): _node_ptr(n), _tree_ptr(t){}
+                BstIterator(const node *n, const Binary_search_tree *t): _node_ptr(n), _tree_ptr(t){}
                 BstIterator(const BstIterator &rhs) : _node_ptr(rhs._node_ptr), _tree_ptr(rhs._tree_ptr) {}
                 ~BstIterator() {}
 
@@ -49,12 +45,7 @@ namespace ft {
                     return (this->_node_ptr != rhs._node_ptr);
                 }
 
-                // dereference operator. return a reference to
-                // the value pointed to by _node_ptr
-                const reference operator* () const
-                {
-                    return (this->_node_ptr->value);
-                }
+
 
                 // preincrement. move forward to next larger value
                 BstIterator& operator++ ()
@@ -67,7 +58,7 @@ namespace ft {
                         _node_ptr = _tree_ptr->__root;
                         // error! ++ requested for an empty tree
                         if (_node_ptr == NULL)
-                            throw std::std::UnderflowException { };
+                            throw std::exception {};
                         // move to the smallest value in the tree,
                         // which is the first node inorder
                         while (_node_ptr->left != NULL) {
@@ -109,7 +100,7 @@ namespace ft {
                 // postincrement
                 BstIterator operator++ (int)
                 {
-                    BstIteraor tmp;
+                    BstIterator tmp;
                     ++(*this);
                     return (tmp);
                 }
@@ -122,7 +113,7 @@ namespace ft {
                     {
                         _node_ptr = _tree_ptr->__root;
                         if (_node_ptr == NULL)
-                            throw std::std::UnderflowException { };
+                            throw std::exception{};
                         while (_node_ptr->right != NULL) {
                             _node_ptr = _node_ptr->right;
                         }
@@ -148,7 +139,7 @@ namespace ft {
                 // postdecrement
                 BstIterator  operator-- (int)
                 {
-                    BstIteraor tmp;
+                    BstIterator tmp;
                     --(*this);
                     return (tmp);
                 }
@@ -163,7 +154,7 @@ namespace ft {
                 // _root pointer, which is needed for ++ and --
                 // when the iterator value is end()
                 const node *_node_ptr;
-                const tree *_tree_ptr;
+                const Binary_search_tree *_tree_ptr;
 
                 // used to construct an iterator return value from
                 // a node pointer
@@ -180,40 +171,33 @@ namespace ft {
          * BST_Node* right;
          */
         public:
-            BinarySearchTree( ) : _root{ NULL }
+            typedef BstIterator<value_type>         iterator;
+            typedef BstIterator<const value_type>   const_iterator;
+
+            Binary_search_tree( ) : _root{ NULL }
             {
             }
 
             /**
              * Copy constructor
              */
-            BinarySearchTree( const BinarySearchTree & rhs ) : _root{ NULL }
+            Binary_search_tree( const Binary_search_tree & rhs ) : _root{ NULL }
             {
                 _root = clone( rhs._root );
             }
             /**
             * Destructor for the tree
             */
-            ~BinarySearchTree( )
+            ~Binary_search_tree( )
             {
-                makeEmpty( );
+                makeEmpty( _root );
             }
-            /**
-            * Copy assignment
-            */
-            BinarySearchTree & operator=( const BinarySearchTree & rhs )
-            {
-                BinarySearchTree copy = rhs;
-                std::swap( *this, copy );
-                return *this;
-            }
-
             /**
              * @return bool True if root is NULL so tree is empty
              */
             bool isEmpty( ) const
             {
-                return root == NULL;
+                return _root == NULL;
             }
             /**
              * Returns the min value in the tree
@@ -252,17 +236,17 @@ namespace ft {
              */
             bool contains_key( const value_type & x, node *node) const
             {
-                if( t == NULL )
+                if( node == NULL )
                     return false;
                 else if( x->value.first < node->value.first )
                     return contains_key( x, node->left );
-                else if( t->value.first < node->value.first )
+                else if( node->value.first < node->value.first )
                     return contains_key( x, node->right );
                 else
                     return true;    // Match
             }
 
-            iterator insert(const data_type& x, int& isNew) {
+            iterator insert(const value_type& x, int& isNew) {
                 node* temp = insert(_root, NULL, x, isNew);
                 setParent(_root);
                 return iterator(temp, this);
@@ -291,23 +275,36 @@ namespace ft {
             {
                 if( t == NULL )
                     return;   // Item not found; do nothing
-                if( Compare(x.first < t->element.first) )
+                if( Compare(x.first, t->element.first) )
                     remove( x, t->left );
-                else if( Compare(t->element.first < x.first )
+                else if( Compare()(t->element.first, x.first ))
                     remove( x, t->right );
-                else if( Compare(t->left.first != NULL && t->right.first != NULL ) // Two children
+                else if( t->left.first != NULL && t->right.first != NULL ) // Two children
                 {
-                    t = findMin( t->right );
-                    remove( t, t->right );
+                    node * tmp = findMin( t->right );
+                    t->value = tmp->value;
+                    remove( t->value, t->right );
                 }
                 else
                 {
                     node *oldNode = t;
                     t = ( t->left != NULL ) ? t->left : t->right;
                     _alloc.destroy(oldNode);
-                    _alloc.deallocate(oldNode);
+                    _alloc.deallocate(oldNode, 1);
                     setParent(_root);
                 }
+            }
+
+            void makeEmpty( node * & t )
+            {
+                if( t != NULL )
+                {
+                    makeEmpty( t->left );
+                    makeEmpty( t->right );
+                    _alloc.destroy(t);
+                    _alloc.deallocate(t, 1);
+                }
+                t = NULL;
             }
 
         private:
@@ -325,7 +322,9 @@ namespace ft {
                     return (insert(start->right, start, val));
                 return (start);
             }
-    }
+
+
+    };
 }
 
 #endif // BSTHPP
