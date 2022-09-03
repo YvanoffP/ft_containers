@@ -26,7 +26,6 @@ namespace ft {
                 : public ft::iterator<ft::bidirectional_iterator_tag, P> {
             public:
 
-                typedef typename P::value_type             value_type;
                 typedef BST_Node<value_type>               node;
 
                 BstIterator();
@@ -246,7 +245,7 @@ namespace ft {
                     return true;    // Match
             }
 
-            iterator insert(const value_type& x) {
+            iterator insert(value_type x) {
                 node* temp = insert(_root, NULL, x);
                 setParent(_root);
                 return iterator(temp, this);

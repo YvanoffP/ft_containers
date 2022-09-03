@@ -471,14 +471,14 @@ int main()
 
     {
 
-        ft::Binary_search_tree<std::pair<int, int>> test;
+        ft::Binary_search_tree< ft::pair<int, int>, int> test;
         int i = 12;
         int u = 25;
         ft::pair<int, int> test_pair = ft::make_pair(i, u);
         (void) test_pair;
         std::cout << test.isEmpty() << std::endl;
         std::cout << test_pair.first << " " << test_pair.second << std::endl;
-        //test.insert(test_pair);
+        test.insert(test_pair);
 
 
     }
