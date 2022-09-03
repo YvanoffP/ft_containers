@@ -246,8 +246,8 @@ namespace ft {
                     return true;    // Match
             }
 
-            iterator insert(const value_type& x, int& isNew) {
-                node* temp = insert(_root, NULL, x, isNew);
+            iterator insert(const value_type& x) {
+                node* temp = insert(_root, NULL, x);
                 setParent(_root);
                 return iterator(temp, this);
             }
