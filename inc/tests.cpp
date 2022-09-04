@@ -90,7 +90,17 @@ int main()
         std::cout << "Max value in the tree is : " << test.findMax(test.getRoot())->value.first << std::endl;
         std::cout << "Min value in the tree is : " << test.findMin(test.getRoot())->value.first << std::endl;
         test.printBT(test.getRoot());
+        test.remove(test_pair);
+        test.remove(test_pair3);
 
+
+        test.printBT(test.getRoot());
+        test.makeEmpty();
+        std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
+        test.printBT(test.getRoot());
+
+
+        while (1){}
     }
     /*int i = 0;
     ft::vector<int> test_ft;

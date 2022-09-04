@@ -254,69 +254,25 @@ namespace ft {
                 node* temp = insert(_root, NULL, x);
                 if (isEmpty())
                     this->_root = temp;
-                setParent(_root);
                 return iterator(temp, this);
             }
 
-            /**
-             * Re sets the parents of all the nodes present
-             * in the tree
-             * @param r
-             */
-            void setParent(node *current) {
-                if (current)
-                {
-                    if (current->left != NULL) {
-                        current->left->parent = current;
-                        setParent(current->left);
-                    }
-                    if (current->right != NULL) {
-                        current->right->parent = current;
-                        setParent(current->right);
-                    }
-                }
+            void remove(const value_type & x)
+            {
+                remove(x, _root);
             }
 
-            void remove( const value_type & x, node * & t )
-            {
-                if( t == NULL )
-                    return;   // Item not found; do nothing
-                if( Compare(x.first, t->element.first) )
-                    remove( x, t->left );
-                else if( Compare()(t->element.first, x.first ))
-                    remove( x, t->right );
-                else if( t->left.first != NULL && t->right.first != NULL ) // Two children
-                {
-                    node * tmp = findMin( t->right );
-                    t->value = tmp->value;
-                    remove( t->value, t->right );
-                }
-                else
-                {
-                    node *oldNode = t;
-                    t = ( t->left != NULL ) ? t->left : t->right;
-                    _alloc.destroy(oldNode);
-                    _alloc.deallocate(oldNode, 1);
-                    setParent(_root);
-                }
-            }
 
             void printBT(const Node* node)
             {
                 printBT("", node, false);
             }
-
-            void makeEmpty( node * & t )
+            void makeEmpty( )
             {
-                if( t != NULL )
-                {
-                    makeEmpty( t->left );
-                    makeEmpty( t->right );
-                    _alloc.destroy(t);
-                    _alloc.deallocate(t, 1);
-                }
-                t = NULL;
+                makeEmpty( _root );
             }
+
+
 
         private:
             node *insert(node *&start, node *parent, const value_type &val)
@@ -349,6 +305,41 @@ namespace ft {
                     printBT( prefix + (isLeft ? "│   " : "    "), node->left, true);
                     printBT( prefix + (isLeft ? "│   " : "    "), node->right, false);
                 }
+            }
+
+            void remove( const value_type & x, Node * & t )
+            {
+                if( t == NULL )
+                    return;   // Item not found; do nothing
+                if( Compare()(x.first, t->value.first) )
+                    remove( x, t->left );
+                else if( Compare()(t->value.first, x.first ))
+                    remove( x, t->right );
+                else if( t->left != NULL && t->right != NULL ) // Two children
+                {
+                    Node * tmp = findMin( t->right );
+                    t->value = tmp->value;
+                    remove( t->value, t->right );
+                }
+                else
+                {
+                    node *oldNode = t;
+                    t = ( t->left != NULL ) ? t->left : t->right;
+                    _alloc.destroy(oldNode);
+                    _alloc.deallocate(oldNode, 1);
+                }
+            }
+
+            void makeEmpty( node * & t )
+            {
+                if( t != NULL )
+                {
+                    makeEmpty( t->left );
+                    makeEmpty( t->right );
+                    _alloc.destroy(t);
+                    _alloc.deallocate(t, 1);
+                }
+                t = NULL;
             }
 
     };
