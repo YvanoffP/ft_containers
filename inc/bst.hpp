@@ -4,7 +4,7 @@
 # include "utils.hpp"
 
 namespace ft {
-    template < class T, class Compare = std::less<T>, class Node = ft::BST_Node<T>,
+    template < class T, class Key, class Compare = std::less<Key>, class Node = ft::BST_Node<T>,
             class Alloc = std::allocator<T>, class Node_Alloc = std::allocator<Node> >
     class Binary_search_tree
     {
@@ -13,7 +13,6 @@ namespace ft {
             typedef Node                            node;
             typedef Alloc                           allocator_type;
             typedef Node_Alloc                      node_alloc;
-
 
         private:
             node_alloc  _alloc;
@@ -237,16 +236,24 @@ namespace ft {
             {
                 if( node == NULL )
                     return false;
-                else if( x->value.first < node->value.first )
+                else if( Compare()(x.first, node->value.first) )
                     return contains_key( x, node->left );
-                else if( node->value.first < node->value.first )
+                else if( Compare()(node->value.first, x.first) )
                     return contains_key( x, node->right );
                 else
                     return true;    // Match
             }
 
+            node *get_root()
+            {
+                return (this->_root);
+            }
+
+
             iterator insert(value_type x) {
                 node* temp = insert(_root, NULL, x);
+                if (isEmpty())
+                    this->_root = temp;
                 setParent(_root);
                 return iterator(temp, this);
             }
@@ -307,7 +314,7 @@ namespace ft {
             }
 
         private:
-            node *insert(node *start, node *parent, const value_type &val)
+            node *insert(node *&start, node *parent, const value_type &val)
             {
                 if (start == NULL)
                 {

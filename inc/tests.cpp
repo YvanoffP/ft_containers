@@ -13,7 +13,7 @@
 //#include "./map.hpp"
 
 
-class B {
+/*class B {
 public:
     char *l;
     int i;
@@ -40,9 +40,9 @@ public:
         delete this->l;
         this->l = NULL;
     };
-};
+};*/
 
-template <typename Ite_1, typename Ite_2>
+/*template <typename Ite_1, typename Ite_2>
 void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
 {
     std::cout << (first < second) << std::endl;
@@ -51,11 +51,46 @@ void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
     std::cout << (first >= second) << std::endl;
     if (redo)
         ft_eq_ope(second, first, 0);
-}
+}*/
 
 int main()
 {
-    int i = 0;
+    {
+
+        ft::Binary_search_tree<ft::pair<int, int>, int> test;
+        int i = 12;
+        int u = 25;
+        ft::pair<int, int> test_pair = ft::make_pair(i, u);
+        i = u + i;
+        u += 199;
+        ft::pair<int, int> test_pair2 = ft::make_pair(i, u);
+        i = u + i;
+        u += 199;
+        ft::pair<int, int> test_pair3 = ft::make_pair(i, u);
+        i = 1;
+        u = 2;
+        ft::pair<int, int> test_pair4 = ft::make_pair(i, u);
+        i = 199;
+        u = 2000;
+        ft::pair<int, int> test_pair5 = ft::make_pair(i, u);
+
+        std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
+        std::cout << "test pair 1: " << test_pair.first << " " << test_pair.second << std::endl;
+        std::cout << "test pair 2: " << test_pair2.first << " " << test_pair2.second << std::endl;
+        test.insert(test_pair);
+        test.insert(test_pair2);
+        test.insert(test_pair3);
+        test.insert(test_pair4);
+        test.insert(test_pair5);
+
+
+        std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
+        std::cout << "Root : " << test.get_root()->value.first << std::endl;
+        std::cout << "Does Tree have 37 as a key ? " << test.contains_key(test_pair2, test.get_root() ) << std::endl;
+
+
+    }
+    /*int i = 0;
     ft::vector<int> test_ft;
     std::vector<int> test_std;
     for (int k = 0; k < 50; k++)
@@ -268,7 +303,7 @@ int main()
         v.push_back(vv.size());
         v.push_back(vv.capacity());
         //std::cout << "allo" << std::cout;
-    }
+    }*/
     //--------------------------------------------------------------------------
     /*std::cout << "---------------------------insert()---------------------------" << std::endl;
     std::vector<int> test_std3;
@@ -299,7 +334,7 @@ int main()
     for(std::vector<int>::iterator it_std44 = test_std3.begin(); it_std44 != test_std3.end(); ++it_std44) {
         std::cout << i++ << ": *it_std: " << *it_std44 << std::endl;
     }*/
-    i = 0;
+    //i = 0;
 
    /* std::cout << "---------------------------insert()---------------------------" << std::endl;
     ft::vector<int> test_ft3;
@@ -469,19 +504,7 @@ int main()
         ft_eq_ope(it_mid, cit_1 - 3);*/
     }
 
-    {
 
-        ft::Binary_search_tree< ft::pair<int, int>, int> test;
-        int i = 12;
-        int u = 25;
-        ft::pair<int, int> test_pair = ft::make_pair(i, u);
-        (void) test_pair;
-        std::cout << test.isEmpty() << std::endl;
-        std::cout << test_pair.first << " " << test_pair.second << std::endl;
-        test.insert(test_pair);
-
-
-    }
     return (0);
 }
 
