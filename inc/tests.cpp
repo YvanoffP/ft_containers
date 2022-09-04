@@ -87,7 +87,9 @@ int main()
         std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
         std::cout << "Root : " << test.getRoot()->value.first << std::endl;
         std::cout << "Does Tree have 37 as a key ? " << test.containsKey(test_pair2, test.getRoot() ) << std::endl;
-
+        std::cout << "Max value in the tree is : " << test.findMax(test.getRoot())->value.first << std::endl;
+        std::cout << "Min value in the tree is : " << test.findMin(test.getRoot())->value.first << std::endl;
+        test.printBT(test.getRoot());
 
     }
     /*int i = 0;

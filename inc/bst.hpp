@@ -204,7 +204,7 @@ namespace ft {
             node * findMin( node *t ) const
             {
                 node *tmp;
-                if( isEmpty( _root ) )
+                if( isEmpty( ) )
                     return NULL;
                 tmp = t;
                 while (tmp->left != NULL)
@@ -219,7 +219,7 @@ namespace ft {
             node * findMax( node *t ) const
             {
                 node *tmp;
-                if( isEmpty( _root ) )
+                if( isEmpty( ) )
                     return NULL;
                 tmp = t;
                 while (tmp->right != NULL)
@@ -301,6 +301,11 @@ namespace ft {
                 }
             }
 
+            void printBT(const Node* node)
+            {
+                printBT("", node, false);
+            }
+
             void makeEmpty( node * & t )
             {
                 if( t != NULL )
@@ -329,6 +334,22 @@ namespace ft {
                 return (start);
             }
 
+            void printBT(const std::string& prefix, const Node* node, bool isLeft)
+            {
+                if( node != nullptr )
+                {
+                    std::cout << prefix;
+
+                    std::cout << (isLeft ? "├──" : "└──" );
+
+                    // print the value of the node
+                    std::cout << node->value.first << std::endl;
+
+                    // enter the next tree level - left and right branch
+                    printBT( prefix + (isLeft ? "│   " : "    "), node->left, true);
+                    printBT( prefix + (isLeft ? "│   " : "    "), node->right, false);
+                }
+            }
 
     };
 }
