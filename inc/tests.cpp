@@ -89,15 +89,15 @@ int main()
         std::cout << "Does Tree have 37 as a key ? " << test.containsKey(test_pair2, test.getRoot() ) << std::endl;
         std::cout << "Max value in the tree is : " << test.findMax(test.getRoot())->value.first << std::endl;
         std::cout << "Min value in the tree is : " << test.findMin(test.getRoot())->value.first << std::endl;
-        test.printBT(test.getRoot());
+        test.printBT();
         test.remove(test_pair);
         test.remove(test_pair3);
 
 
-        test.printBT(test.getRoot());
+        test.printBT();
         test.makeEmpty();
         std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
-        test.printBT(test.getRoot());
+        test.printBT();
 
     }
     /*int i = 0;

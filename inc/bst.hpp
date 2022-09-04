@@ -262,9 +262,9 @@ namespace ft {
             }
 
 
-            void printBT(const Node* node)
+            void printBT()
             {
-                printBT("", node, false);
+                printBT("", _root, false);
             }
             void makeEmpty( )
             {
