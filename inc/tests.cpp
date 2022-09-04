@@ -85,8 +85,8 @@ int main()
 
 
         std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
-        std::cout << "Root : " << test.get_root()->value.first << std::endl;
-        std::cout << "Does Tree have 37 as a key ? " << test.contains_key(test_pair2, test.get_root() ) << std::endl;
+        std::cout << "Root : " << test.getRoot()->value.first << std::endl;
+        std::cout << "Does Tree have 37 as a key ? " << test.containsKey(test_pair2, test.getRoot() ) << std::endl;
 
 
     }

@@ -232,19 +232,19 @@ namespace ft {
              * @param node
              * @return True if the key exists, false if not
              */
-            bool contains_key( const value_type & x, node *node) const
+            bool containsKey( const value_type & x, node *node) const
             {
                 if( node == NULL )
                     return false;
                 else if( Compare()(x.first, node->value.first) )
-                    return contains_key( x, node->left );
+                    return containsKey( x, node->left );
                 else if( Compare()(node->value.first, x.first) )
-                    return contains_key( x, node->right );
+                    return containsKey( x, node->right );
                 else
                     return true;    // Match
             }
 
-            node *get_root()
+            node *getRoot()
             {
                 return (this->_root);
             }
