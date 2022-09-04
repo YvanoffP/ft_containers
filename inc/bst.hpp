@@ -56,7 +56,7 @@ namespace ft {
                         _node_ptr = _tree_ptr->__root;
                         // error! ++ requested for an empty tree
                         if (_node_ptr == NULL)
-                            throw std::exception {};
+                            throw std::exception();
                         // move to the smallest value in the tree,
                         // which is the first node inorder
                         while (_node_ptr->left != NULL) {
@@ -111,7 +111,7 @@ namespace ft {
                     {
                         _node_ptr = _tree_ptr->__root;
                         if (_node_ptr == NULL)
-                            throw std::exception{};
+                            throw std::exception();
                         while (_node_ptr->right != NULL) {
                             _node_ptr = _node_ptr->right;
                         }
@@ -172,14 +172,13 @@ namespace ft {
             typedef BstIterator<value_type>         iterator;
             typedef BstIterator<const value_type>   const_iterator;
 
-            Binary_search_tree( ) : _root{ NULL }
-            {
-            }
+            Binary_search_tree( ) : _root( NULL )
+            { }
 
             /**
              * Copy constructor
              */
-            Binary_search_tree( const Binary_search_tree & rhs ) : _root{ NULL }
+            Binary_search_tree( const Binary_search_tree & rhs ) : _root( NULL )
             {
                 _root = clone( rhs._root );
             }

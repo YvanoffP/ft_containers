@@ -99,8 +99,6 @@ int main()
         std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
         test.printBT(test.getRoot());
 
-
-        while (1){}
     }
     /*int i = 0;
     ft::vector<int> test_ft;
