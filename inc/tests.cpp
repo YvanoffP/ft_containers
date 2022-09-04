@@ -93,7 +93,10 @@ int main()
         test.remove(test_pair);
         test.remove(test_pair3);
 
-
+        std::cout << "Find Pair 1 | 2 : " << test.find(test_pair4)->value.first << " | "
+            << test.find(test_pair4)->value.second << " His parent is : " <<
+            test.find(test_pair4)->parent->value.first <<
+            " | " << test.find(test_pair4)->parent->value.second << std::endl;
         test.printBT();
         test.makeEmpty();
         std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;

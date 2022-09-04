@@ -243,6 +243,11 @@ namespace ft {
                     return true;    // Match
             }
 
+            Node *find( const value_type & x) const
+            {
+                return find(x, _root);
+            }
+
             node *getRoot()
             {
                 return (this->_root);
@@ -287,6 +292,18 @@ namespace ft {
                 else if (Compare()(start->value.first, val.first)) // val.first > start->value.first : left
                     return (insert(start->right, start, val));
                 return (start);
+            }
+
+            Node *find( const value_type & x, node *node) const
+            {
+                if( node == NULL )
+                    return NULL;
+                else if( Compare()(x.first, node->value.first) )
+                    return find( x, node->left );
+                else if( Compare()(node->value.first, x.first) )
+                    return find( x, node->right );
+                else
+                    return node;    // Match
             }
 
             void printBT(const std::string& prefix, const Node* node, bool isLeft)
