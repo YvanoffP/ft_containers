@@ -53,7 +53,7 @@ namespace ft {
                 return (*this);
             //this->clear();
 
-            //TODO : use insert() as vector
+            //TODO : use insert() as vector (cimer pour l'OP bro <3 et l'inspi)
             this->_alloc = x._alloc;
             this->_comp = x._comp;
             this->_bst = x._bst;
