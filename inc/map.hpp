@@ -80,12 +80,19 @@ namespace ft {
 
         // ------------------------------------ MODIFIERS -------------------------------------
 
-        //TODO: clear, erase, swap
+        //TODO: clear, insert, erase, swap
         //TODO: CPP11 and later : insert_or_assign, emplace, emplace_hint, try_emplace, extract, merge
 
         // ------------------------------------ LOOKUP -------------------------------------
 
-        //TODO: count, find, contains, equal_range, lower_bound, upper_boud
+        //TODO: count, find, contains, equal_range
+        iterator lower_bound(const key_type& x) { return _bst.lower_bound(x); }
+        const_iterator lower_bound(const key_type& x) const { return _bst.lower_bound(x); }
+        iterator upper_bound(const key_type& x) { return _bst.upper_bound(x); }
+        const_iterator upper_bound(const key_type& x) const { return _bst.upper_bound(x); }
+
+
+
 
         // ------------------------------------ OBSERVERS -------------------------------------
 
