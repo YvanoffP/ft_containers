@@ -27,10 +27,13 @@ namespace ft {
 
                 typedef BST_Node<value_type>               node;
 
+                // ------------------------------------ CONSTRUCTOR DESTRUCTOR -------------------------------------
                 BstIterator();
                 BstIterator(const node *n, const Binary_search_tree *t): _node_ptr(n), _tree_ptr(t){}
                 BstIterator(const BstIterator &rhs) : _node_ptr(rhs._node_ptr), _tree_ptr(rhs._tree_ptr) {}
                 ~BstIterator() {}
+
+                // ------------------------------------ OPERATOR OVERLOAD -------------------------------------
 
                 // comparison operators. just P node pointers
                 bool operator== (const BstIterator& rhs) const
@@ -43,7 +46,17 @@ namespace ft {
                     return (this->_node_ptr != rhs._node_ptr);
                 }
 
+                const P* operator->() const {
+                    if (_node_ptr == NULL)
+                        throw std::exception();
+                    return &(_node_ptr->value);
+                }
 
+                const P& operator*() const {
+                    if (_node_ptr == NULL)
+                        throw std::exception();
+                    return _node_ptr->value;
+                }
 
                 // preincrement. move forward to next larger value
                 BstIterator& operator++ ()
@@ -141,6 +154,7 @@ namespace ft {
                     --(*this);
                     return (tmp);
                 }
+            // ----------------------------------------------------------------------------------------------
 
             private:
                 friend class Tree;
@@ -171,17 +185,16 @@ namespace ft {
         public:
             typedef BstIterator<value_type>         iterator;
             typedef BstIterator<const value_type>   const_iterator;
+            // ------------------------------------ CONSTRUCTOR DESTRUCTOR -------------------------------------
 
-            Binary_search_tree( ) : _root( NULL )
-            { }
+            Binary_search_tree( ) : _root( NULL ) { }
 
             /**
              * Copy constructor
              */
             Binary_search_tree( const Binary_search_tree & rhs ) : _root( NULL )
-            {
-                _root = clone( rhs._root );
-            }
+            { _root = clone( rhs._root ); }
+
             /**
             * Destructor for the tree
             */
@@ -189,6 +202,7 @@ namespace ft {
             {
                 makeEmpty( _root );
             }
+            // ------------------------------------ MEMBERS METHOD -------------------------------------
             /**
              * @return bool True if root is NULL so tree is empty
              */
@@ -196,6 +210,7 @@ namespace ft {
             {
                 return _root == NULL;
             }
+
             /**
              * Returns the min value in the tree
              * We just go to the furthest left element in the tree
@@ -226,6 +241,107 @@ namespace ft {
                 return (tmp);
             }
 
+            node *getRoot()
+            {
+                return (this->_root);
+            }
+
+            iterator insert(value_type x) {
+                node* temp = insert(_root, NULL, x);
+                if (isEmpty())
+                    this->_root = temp;
+                return iterator(temp, this);
+            }
+
+            void remove(const value_type & x)
+            {
+                remove(x, _root);
+            }
+
+            void makeEmpty( )
+            {
+                makeEmpty( _root );
+            }
+
+            // ------------------------------------ BST UTILS -------------------------------------
+
+            void printBT()
+            {
+                printBT("", _root, false);
+            }
+
+            // ------------------------------------ MAP RELATED METHODS -------------------------------------
+
+            Node *find( const value_type & x) const
+            {
+                return find(x, _root);
+            }
+
+            iterator lower_bound(const Key& val_key)
+            {
+                node* tmp = _root;
+
+                while (tmp != NULL)
+                {
+                    if (tmp->value.first == val_key)
+                        return (iterator(tmp, this));
+                    else if (Compare()(val_key, tmp->value.first)) // XXX < XXX
+                        return (iterator(tmp, this));
+                    else
+                        tmp = tmp->right;
+                }
+                return end();
+            }
+
+            const_iterator lower_bound(const Key& val_key) const
+            {
+                node* tmp = _root;
+
+                while (tmp != NULL)
+                {
+                    if (tmp->value.first == val_key)
+                        return (const_iterator(tmp, this));
+                    else if (Compare()(val_key, tmp->value.first)) // XXX < XXX
+                        return (const_iterator(tmp, this));
+                    else
+                        tmp = tmp->right;
+                }
+                return end();
+            }
+
+            iterator upper_bound(const Key& val_key)
+            {
+                node* tmp = _root;
+
+                while (tmp != NULL)
+                {
+                    if (Compare()(val_key, tmp->value.first)) // XXX < XXX
+                        return iterator(tmp, this);
+                    else
+                        tmp = tmp->right;
+                }
+                return end();
+            }
+
+            const_iterator upper_bound(const Key& val_key) const
+            {
+                node* tmp = _root;
+
+                while (tmp != NULL)
+                {
+                    if (Compare()(val_key, tmp->value.first)) // XXX < XXX
+                        return const_iterator(tmp, this);
+                    else
+                        tmp = tmp->right;
+                }
+                return end();
+            }
+
+            iterator end() { return iterator(NULL, this); }
+            const_iterator end() const { return const_iterator(NULL, this); }
+            iterator begin() { return (iterator(findMin(this->_root), this)); }
+            const_iterator begin() const { return (const_iterator(findMin(this->_root), this)); }
+
             /**
              * @param x
              * @param node
@@ -243,41 +359,6 @@ namespace ft {
                     return true;    // Match
             }
 
-            Node *find( const value_type & x) const
-            {
-                return find(x, _root);
-            }
-
-            node *getRoot()
-            {
-                return (this->_root);
-            }
-
-
-            iterator insert(value_type x) {
-                node* temp = insert(_root, NULL, x);
-                if (isEmpty())
-                    this->_root = temp;
-                return iterator(temp, this);
-            }
-
-            void remove(const value_type & x)
-            {
-                remove(x, _root);
-            }
-
-
-            void printBT()
-            {
-                printBT("", _root, false);
-            }
-            void makeEmpty( )
-            {
-                makeEmpty( _root );
-            }
-
-
-
         private:
             node *insert(node *&start, node *parent, const value_type &val)
             {
@@ -289,7 +370,7 @@ namespace ft {
                 }
                 else if (Compare()(val.first, start->value.first)) // val.first < start->value.first : left
                     return (insert(start->left, start, val));
-                else if (Compare()(start->value.first, val.first)) // val.first > start->value.first : left
+                else if (Compare()(start->value.first, val.first)) // val.first > start->value.first : right
                     return (insert(start->right, start, val));
                 return (start);
             }

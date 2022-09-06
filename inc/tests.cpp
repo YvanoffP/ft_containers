@@ -10,7 +10,8 @@
 #include <vector>
 #include <memory>
 #include "bst.hpp"
-//#include "./map.hpp"
+#include <map>
+#include "./map.hpp"
 
 
 /*class B {
@@ -77,6 +78,9 @@ int main()
         std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
         std::cout << "test pair 1: " << test_pair.first << " " << test_pair.second << std::endl;
         std::cout << "test pair 2: " << test_pair2.first << " " << test_pair2.second << std::endl;
+        std::cout << "test pair 3: " << test_pair3.first << " " << test_pair3.second << std::endl;
+        std::cout << "test pair 4: " << test_pair4.first << " " << test_pair4.second << std::endl;
+        std::cout << "test pair 5: " << test_pair5.first << " " << test_pair5.second << std::endl;
         test.insert(test_pair);
         test.insert(test_pair2);
         test.insert(test_pair3);
@@ -90,6 +94,8 @@ int main()
         std::cout << "Max value in the tree is : " << test.findMax(test.getRoot())->value.first << std::endl;
         std::cout << "Min value in the tree is : " << test.findMin(test.getRoot())->value.first << std::endl;
         test.printBT();
+        std::cout << "Lower bound of 38 is :" << test.lower_bound(38)->first << std::endl;
+        std::cout << "Upper bound of 38 is :" << test.upper_bound(38)->first << std::endl;
         test.remove(test_pair);
         test.remove(test_pair3);
 
@@ -101,6 +107,39 @@ int main()
         test.makeEmpty();
         std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
         test.printBT();
+
+    }
+    {
+
+        std::map<int, int> test;
+        int i = 12;
+        int u = 25;
+        std::pair<int, int> test_pair = std::make_pair(i, u);
+        i = u + i;
+        u += 199;
+        std::pair<int, int> test_pair2 = std::make_pair(i, u);
+        i = u + i;
+        u += 199;
+        std::pair<int, int> test_pair3 = std::make_pair(i, u);
+        i = 1;
+        u = 2;
+        std::pair<int, int> test_pair4 = std::make_pair(i, u);
+        i = 199;
+        u = 2000;
+        std::pair<int, int> test_pair5 = std::make_pair(i, u);
+
+        std::cout << "test pair 1: " << test_pair.first << " " << test_pair.second << std::endl;
+        std::cout << "test pair 2: " << test_pair2.first << " " << test_pair2.second << std::endl;
+        std::cout << "test pair 3: " << test_pair3.first << " " << test_pair3.second << std::endl;
+        std::cout << "test pair 4: " << test_pair4.first << " " << test_pair4.second << std::endl;
+        std::cout << "test pair 5: " << test_pair5.first << " " << test_pair5.second << std::endl;
+        test.insert(test_pair);
+        test.insert(test_pair2);
+        test.insert(test_pair3);
+        test.insert(test_pair4);
+        test.insert(test_pair5);
+        std::cout << "Lower bound of 38 is :" << test.lower_bound(38)->first << std::endl;
+        std::cout << "Upper bound of 38 is :" << test.upper_bound(38)->first << std::endl;
 
     }
     /*int i = 0;
