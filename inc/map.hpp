@@ -51,7 +51,7 @@ namespace ft {
         {
             if (this == &x)
                 return (*this);
-            //this->clear();
+            this->clear();
 
             //TODO : use insert() as vector (cimer pour l'OP bro <3 et l'inspi)
             this->_alloc = x._alloc;
@@ -80,7 +80,7 @@ namespace ft {
 
         // ------------------------------------ MODIFIERS -------------------------------------
 
-        //TODO: clear, insert, erase, swap
+        //TODO: insert, erase
         void swap(map &x)
         {
             if (this != &x)
@@ -97,6 +97,8 @@ namespace ft {
                 _bst.swap(x);
             }
         }
+
+        void clear() { this->_bst.makeEmpty(); }
         //TODO: CPP11 and later : insert_or_assign, emplace, emplace_hint, try_emplace, extract, merge
 
         // ------------------------------------ LOOKUP -------------------------------------
@@ -106,6 +108,7 @@ namespace ft {
         const_iterator lower_bound(const key_type& x) const { return _bst.lower_bound(x); }
         iterator upper_bound(const key_type& x) { return _bst.upper_bound(x); }
         const_iterator upper_bound(const key_type& x) const { return _bst.upper_bound(x); }
+        iterator find(const key_type &x) { return (_bst.find(x)); }
 
 
 

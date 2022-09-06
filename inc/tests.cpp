@@ -57,6 +57,10 @@ void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
 int main()
 {
     {
+        ft::map<int, int> test;
+        (void)test;
+    }
+    {
 
         ft::Binary_search_tree<ft::pair<int, int>, int> test;
         int i = 12;
