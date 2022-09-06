@@ -80,7 +80,7 @@ namespace ft {
 
         // ------------------------------------ MODIFIERS -------------------------------------
 
-        //TODO: insert, erase
+        //TODO: insert
         void swap(map &x)
         {
             if (this != &x)
@@ -98,17 +98,28 @@ namespace ft {
             }
         }
 
-        void clear() { this->_bst.makeEmpty(); }
-        //TODO: CPP11 and later : insert_or_assign, emplace, emplace_hint, try_emplace, extract, merge
+        void clear()
+        {
+            this->_bst.makeEmpty();
+            this->_size = 0;
+        }
+
+        void erase(iterator position) { _bst.remove(*position); }
+
+        // Methods from CPP11 and later : insert_or_assign, emplace, emplace_hint, try_emplace, extract, merge
 
         // ------------------------------------ LOOKUP -------------------------------------
 
-        //TODO: count, find, contains, equal_range
+        //TODO: equal_range
         iterator lower_bound(const key_type& x) { return _bst.lower_bound(x); }
         const_iterator lower_bound(const key_type& x) const { return _bst.lower_bound(x); }
         iterator upper_bound(const key_type& x) { return _bst.upper_bound(x); }
         const_iterator upper_bound(const key_type& x) const { return _bst.upper_bound(x); }
         iterator find(const key_type &x) { return (_bst.find(x)); }
+        // Count returns the number of elements containing the parameter (key x)
+        size_type count(const key_type &x) const { return (_bst.containsKey(x)); }
+
+        // Methods from CPP 11 and later : contains
 
 
 
