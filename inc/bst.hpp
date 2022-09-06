@@ -272,6 +272,19 @@ namespace ft {
 
             // ------------------------------------ MAP RELATED METHODS -------------------------------------
 
+            void swap(Binary_search_tree &x)
+            {
+                if (this != &x) {
+                    node_alloc tmp_alloc = this->_alloc;
+                    node *tmp_root = this->_root;
+
+                    this->_alloc = x._alloc;
+                    this->_root = x._root;
+                    x._alloc = tmp_alloc;
+                    x._root = tmp_root;
+                }
+            }
+
             Node *find( const value_type & x) const
             {
                 return find(x, _root);

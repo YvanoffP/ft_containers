@@ -81,6 +81,22 @@ namespace ft {
         // ------------------------------------ MODIFIERS -------------------------------------
 
         //TODO: clear, insert, erase, swap
+        void swap(map &x)
+        {
+            if (this != &x)
+            {
+                allocator_type  tmp_alloc = x._alloc;
+                key_compare     tmp_comp = x._comp;
+                size_type       tmp_size = x._size;
+                this->_comp = x._comp;
+                this->_size = x._size;
+                this->_alloc = x._alloc;
+                x._comp = tmp_comp;
+                x._alloc = tmp_alloc;
+                x._size = tmp_size;
+                _bst.swap(x);
+            }
+        }
         //TODO: CPP11 and later : insert_or_assign, emplace, emplace_hint, try_emplace, extract, merge
 
         // ------------------------------------ LOOKUP -------------------------------------
