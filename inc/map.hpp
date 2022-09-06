@@ -77,8 +77,26 @@ namespace ft {
         bool empty() const { return (_bst.isEmpty()); }
         size_type size() const { return (this->_size); }
         size_type max_size() const { return (_alloc.max_size()); }
-    };
 
+        // ------------------------------------ MODIFIERS -------------------------------------
+
+        //TODO: clear, erase, swap
+        //TODO: CPP11 and later : insert_or_assign, emplace, emplace_hint, try_emplace, extract, merge
+
+        // ------------------------------------ LOOKUP -------------------------------------
+
+        //TODO: count, find, contains, equal_range, lower_bound, upper_boud
+
+        // ------------------------------------ OBSERVERS -------------------------------------
+
+        //TODO: key_comp, value_comp
+
+
+
+    };
+    // ------------------------------------ NON MEMBER -------------------------------------
+
+    //TODO: operator==, operator!=, operator<, operator<=, operator>, operator>=, swap
 
 }
 #endif // MAP_HPP
