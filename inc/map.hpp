@@ -25,6 +25,22 @@ namespace ft {
         typedef typename ft::reverse_iterator<const_iterator>               const_reverse_iterator;
         typedef typename ft::iterator_traits<iterator>::difference_type     difference_type;
         typedef size_t                                                      size_type;
+
+        // ------------------------------------ VALUE COMPARE (CPP98) -------------------------------------
+        class value_compare : public std::binary_function<value_type, value_type, bool>
+        {
+            friend class map<key_type, mapped_type, key_compare, allocator_type>;
+
+            protected:
+                Compare comp;
+                value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+
+            public:
+                bool operator() (const value_type &x, const value_type &y) const {
+                    return comp(x.first, y.first);
+                }
+        };
+
     private:
 
         allocator_type                              _alloc;
@@ -81,6 +97,48 @@ namespace ft {
         // ------------------------------------ MODIFIERS -------------------------------------
 
         //TODO: insert
+        ft::pair<iterator, bool> insert(const value_type &x)
+        {
+            bool is_added = false;
+
+            iterator ret = _bst.insert(x, is_added);
+            if (is_added == true)
+                this->_size +=1;
+            return (ft::make_pair(ret, is_added));
+        }
+
+        iterator insert(iterator position, const value_type &x)
+        {
+            bool is_added = false;
+
+            (void)position;
+            iterator ret = _bst.insert(x, is_added);
+            if (is_added == true)
+                this->_size += 1;
+            return (ret);
+        }
+
+        void reorganize ()
+        {
+            this->_bst.reorganize_tree(_bst.getRoot(), _bst.getRoot());
+        }
+
+        template<class InputIterator>
+        void insert(InputIterator first, InputIterator last)
+        {
+            bool is_added = false;
+
+            while (first != last)
+            {
+                _bst.insert(*first++, is_added);
+                if (is_added == true)
+                {
+                    this->_size += 1;
+                    is_added = false;
+                }
+            }
+        }
+
         void swap(map &x)
         {
             if (this != &x)
@@ -121,12 +179,18 @@ namespace ft {
 
         // Methods from CPP 11 and later : contains
 
+        // ------------------------------------ Printer -------------------------------------
 
+        void print( void )
+        {
+            this->_bst.printBT();
+        }
 
 
         // ------------------------------------ OBSERVERS -------------------------------------
 
-        //TODO: key_comp, value_comp
+        key_compare key_comp() const { return (key_compare()); }
+        value_compare value_comp() const { return (value_compare(key_compare())); }
 
 
 

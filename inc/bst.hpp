@@ -246,8 +246,8 @@ namespace ft {
                 return (this->_root);
             }
 
-            iterator insert(value_type x) {
-                node* temp = insert(_root, NULL, x);
+            iterator insert(value_type x, bool &is_added) {
+                node* temp = insert(_root, NULL, x, is_added);
                 if (isEmpty())
                     this->_root = temp;
                 return iterator(temp, this);
@@ -372,20 +372,91 @@ namespace ft {
                     return true;    // Match
             }
 
+            void reorganize_tree(node *checker, node *root)
+            {
+                if (checker->left != NULL) {
+                    if (checker->left->right != NULL) {
+                        relocate_node_left(checker->left->right, root);
+                    }
+                    reorganize_tree(checker->left, root);
+                }
+                if (checker->right != NULL) {
+                    if (checker->right->left != NULL)
+                        relocate_node_right(checker->right->left, root);
+                    reorganize_tree(checker->right, root);
+                }
+            }
+
+            void relocate_node_right(node *to_relocate, node *root)
+            {
+                node *tmp = root;
+                node *back_up = NULL;
+
+                while (tmp != NULL) {
+                    if (Compare()(tmp->value.first, to_relocate->value.first) && Compare()(to_relocate->value.first, tmp->right->value.first)) // <
+                    {
+                        back_up = tmp->right;
+                        tmp->right = to_relocate;
+                        to_relocate->parent = tmp;
+                        to_relocate->right = back_up;
+                        back_up->parent = to_relocate;
+                        back_up->left = NULL;
+                    }
+                    else
+                        tmp = tmp->right;
+                }
+            }
+
+            void relocate_node_left(node *to_relocate, node *root)
+            {
+                node *tmp = root;
+                node *back_up = NULL;
+
+                while (tmp != NULL) {
+                    if (Compare()(to_relocate->value.first, tmp->value.first) && Compare()(tmp->left->value.first, to_relocate->value.first)) // <
+                    {
+                        back_up = tmp->left;
+                        tmp->left = to_relocate;
+                        to_relocate->parent = tmp;
+                        to_relocate->left = back_up;
+                        back_up->parent = to_relocate;
+                        back_up->right = NULL;
+                    }
+                    else
+                        tmp = tmp->left;
+                }
+            }
+
         private:
-            node *insert(node *&start, node *parent, const value_type &val)
+            node *insert(node *&start, node *parent, const value_type &val,  bool &is_added)
             {
                 if (start == NULL)
                 {
                     start = _alloc.allocate(1);
                     _alloc.construct(start, node(val, parent));
+                    is_added = true;
                     return (start);
                 }
                 else if (Compare()(val.first, start->value.first)) // val.first < start->value.first : left
-                    return (insert(start->left, start, val));
+                    return (insert(start->left, start, val, is_added));
                 else if (Compare()(start->value.first, val.first)) // val.first > start->value.first : right
-                    return (insert(start->right, start, val));
+                    return (insert(start->right, start, val, is_added));
                 return (start);
+            }
+
+            void swap_val_node(node *&lhs, node *&rhs)
+            {
+                node tmp;
+
+                tmp.value.first = lhs->value.first;
+                tmp.value.second = lhs->value.second;
+
+                lhs->value.first = rhs->value.first;
+                lhs->value.second = rhs->value.second;
+
+                rhs->value.first = tmp.value.first;
+                rhs->value.second = tmp.value.second;
+
             }
 
             Node *find( const value_type & x, node *node) const

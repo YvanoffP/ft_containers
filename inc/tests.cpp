@@ -58,9 +58,22 @@ int main()
 {
     {
         ft::map<int, int> test;
-        (void)test;
+        ft::pair<int, int> kk1(1, 26);
+        ft::pair<int, int> kk2(2, 262);
+        ft::pair<int, int> kk3(3, 333);
+        ft::pair<int, int> kk4(4, 212316);
+        ft::pair<int, int> kk5(5, 2123);
+        test.insert(kk5);
+        test.insert(kk4);
+        test.insert(kk3);
+        test.insert(kk1);
+        test.insert(kk2);
+        test.print();
+        test.reorganize();
+        test.print();
+
     }
-    {
+    /*{
 
         ft::Binary_search_tree<ft::pair<int, int>, int> test;
         int i = 12;
@@ -112,8 +125,8 @@ int main()
         std::cout << "Is test tree empty ? " << test.isEmpty() << std::endl;
         test.printBT();
 
-    }
-    {
+    }*/
+    /*{
 
         std::map<int, int> test;
         int i = 12;
@@ -145,7 +158,7 @@ int main()
         std::cout << "Lower bound of 38 is :" << test.lower_bound(38)->first << std::endl;
         std::cout << "Upper bound of 38 is :" << test.upper_bound(38)->first << std::endl;
 
-    }
+    }*/
     /*int i = 0;
     ft::vector<int> test_ft;
     std::vector<int> test_std;

@@ -98,6 +98,7 @@ namespace ft {
                 return (true);
             return (false);
         }
+
     };
 }
 
