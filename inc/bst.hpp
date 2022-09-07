@@ -375,9 +375,8 @@ namespace ft {
             void reorganize_tree(node *checker, node *root)
             {
                 if (checker->left != NULL) {
-                    if (checker->left->right != NULL) {
+                    if (checker->left->right != NULL)
                         relocate_node_left(checker->left->right, root);
-                    }
                     reorganize_tree(checker->left, root);
                 }
                 if (checker->right != NULL) {

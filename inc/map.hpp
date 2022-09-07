@@ -103,7 +103,10 @@ namespace ft {
 
             iterator ret = _bst.insert(x, is_added);
             if (is_added == true)
+            {
                 this->_size +=1;
+                this->reorganize();
+            }
             return (ft::make_pair(ret, is_added));
         }
 
@@ -113,8 +116,10 @@ namespace ft {
 
             (void)position;
             iterator ret = _bst.insert(x, is_added);
-            if (is_added == true)
+            if (is_added == true) {
                 this->_size += 1;
+                this->reorganize();
+            }
             return (ret);
         }
 
@@ -134,6 +139,7 @@ namespace ft {
                 if (is_added == true)
                 {
                     this->_size += 1;
+                    this->reorganize();
                     is_added = false;
                 }
             }

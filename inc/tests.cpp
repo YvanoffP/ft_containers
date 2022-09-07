@@ -69,7 +69,6 @@ int main()
         test.insert(kk1);
         test.insert(kk2);
         test.print();
-        test.reorganize();
         test.print();
 
     }
