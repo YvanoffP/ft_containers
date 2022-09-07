@@ -63,13 +63,37 @@ int main()
         ft::pair<int, int> kk3(3, 333);
         ft::pair<int, int> kk4(4, 212316);
         ft::pair<int, int> kk5(5, 2123);
+        ft::map<int, int> test2;
+        int i = 12;
+        int u = 25;
+        ft::pair<int, int> test_pair = ft::make_pair(i, u);
+        i = u + i;
+        u += 199;
+        ft::pair<int, int> test_pair2 = ft::make_pair(i, u);
+        i = u + i;
+        u += 199;
+        ft::pair<int, int> test_pair3 = ft::make_pair(i, u);
+        i = 1;
+        u = 2;
+        ft::pair<int, int> test_pair4 = ft::make_pair(i, u);
+        i = 199;
+        u = 2000;
+        ft::pair<int, int> test_pair5 = ft::make_pair(i, u);
         test.insert(kk5);
         test.insert(kk4);
         test.insert(kk3);
         test.insert(kk1);
         test.insert(kk2);
         test.print();
-        test.print();
+
+        test2.insert(test_pair);
+        test2.insert(test_pair2);
+        test2.insert(test_pair3);
+        test2.insert(test_pair4);
+        test2.insert(test_pair5);
+        std::cout << "Lower bound of 38 is :" << test2.lower_bound(38)->first << std::endl;
+        std::cout << "Upper bound of 38 is :" << test2.upper_bound(38)->first << std::endl;
+        test2.print();
 
     }
     /*{
