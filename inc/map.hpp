@@ -105,7 +105,7 @@ namespace ft {
             if (is_added == true)
             {
                 this->_size +=1;
-                this->reorganize();
+                //this->reorganize();
             }
             return (ft::make_pair(ret, is_added));
         }
@@ -118,15 +118,15 @@ namespace ft {
             iterator ret = _bst.insert(x, is_added);
             if (is_added == true) {
                 this->_size += 1;
-                this->reorganize();
+                //this->reorganize();
             }
             return (ret);
         }
 
-        void reorganize ()
+        /*void reorganize ()
         {
             this->_bst.reorganize_tree(_bst.getRoot(), _bst.getRoot());
-        }
+        }*/
 
         template<class InputIterator>
         void insert(InputIterator first, InputIterator last)
@@ -139,7 +139,7 @@ namespace ft {
                 if (is_added == true)
                 {
                     this->_size += 1;
-                    this->reorganize();
+                    //this->reorganize();
                     is_added = false;
                 }
             }
@@ -175,10 +175,32 @@ namespace ft {
         // ------------------------------------ LOOKUP -------------------------------------
 
         //TODO: equal_range
-        iterator lower_bound(const key_type& x) { return _bst.lower_bound(x); }
-        const_iterator lower_bound(const key_type& x) const { return _bst.lower_bound(x); }
-        iterator upper_bound(const key_type& x) { return _bst.upper_bound(x); }
-        const_iterator upper_bound(const key_type& x) const { return _bst.upper_bound(x); }
+        iterator lower_bound(const key_type& x)
+        {
+            iterator it = begin();
+
+            while (it != end())
+            {
+                if (_comp((*it).first, x) == false)
+                    return (it);
+                it++;
+            }
+            return (it);
+        }
+        const_iterator lower_bound(const key_type& x) const { return (const_iterator(lower_bound(x))); }
+        iterator upper_bound(const key_type& x)
+        {
+            iterator it = begin();
+
+            while (it != end())
+            {
+                if (_comp(x, (*it).first))
+                    return (it);
+                it++;
+            }
+            return (it);
+        }
+        const_iterator upper_bound(const key_type& x) const { return (const_iterator(upper_bound(x))); }
         iterator find(const key_type &x) { return (_bst.find(x)); }
         // Count returns the number of elements containing the parameter (key x)
         size_type count(const key_type &x) const { return (_bst.containsKey(x)); }

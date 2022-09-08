@@ -66,7 +66,7 @@ namespace ft {
                     if (_node_ptr == NULL)
                     {
                         // ++ from end(). get the _root of the tree
-                        _node_ptr = _tree_ptr->__root;
+                        _node_ptr = _tree_ptr->_root;
                         // error! ++ requested for an empty tree
                         if (_node_ptr == NULL)
                             throw std::exception();
@@ -111,7 +111,7 @@ namespace ft {
                 // postincrement
                 BstIterator operator++ (int)
                 {
-                    BstIterator tmp;
+                    BstIterator tmp = *this;
                     ++(*this);
                     return (tmp);
                 }
@@ -150,7 +150,7 @@ namespace ft {
                 // postdecrement
                 BstIterator  operator-- (int)
                 {
-                    BstIterator tmp;
+                    BstIterator tmp = *this;
                     --(*this);
                     return (tmp);
                 }
@@ -215,7 +215,7 @@ namespace ft {
              * Returns the min value in the tree
              * We just go to the furthest left element in the tree
              */
-            node * findMin( node *t ) const
+            node *findMin( node *t ) const
             {
                 node *tmp;
                 if( isEmpty( ) )
@@ -230,7 +230,7 @@ namespace ft {
              * Returns the max value in the tree
              * We just go to the furthest right element in the tree
              */
-            node * findMax( node *t ) const
+            node *findMax( node *t ) const
             {
                 node *tmp;
                 if( isEmpty( ) )
@@ -372,7 +372,7 @@ namespace ft {
                     return true;    // Match
             }
 
-            void reorganize_tree(node *checker, node *root)
+           /* void reorganize_tree(node *checker, node *root)
             {
                 if (checker->left != NULL) {
                     if (checker->left->right != NULL)
@@ -424,7 +424,7 @@ namespace ft {
                     else
                         tmp = tmp->left;
                 }
-            }
+            }*/
 
         private:
             node *insert(node *&start, node *parent, const value_type &val,  bool &is_added)
