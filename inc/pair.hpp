@@ -19,6 +19,15 @@ namespace ft {
 
         template<class A, class B>
         pair(const pair<A, B> &p) : first(p.first), second(p.second) {}
+
+        pair &operator=(const pair &x)
+        {
+            if (*this == x)
+                return *this;
+            this->first = x.first;
+            this->second = x.second;
+            return *this;
+        }
     };
     template<class _T1, class _T2>
     bool &operator==(const ft::pair<_T1, _T2> &lhs, const ft::pair<_T1, _T2> &rhs)

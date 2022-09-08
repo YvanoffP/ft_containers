@@ -261,7 +261,7 @@ namespace ft {
 
             void makeEmpty( )
             {
-                makeEmpty( _root );
+                makeEmpty( );
             }
 
             // ------------------------------------ BST UTILS -------------------------------------
