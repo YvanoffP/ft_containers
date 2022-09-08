@@ -1,9 +1,12 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
+# include "bst.hpp"
+# include "reverse_iterator.hpp"
+
 namespace ft {
-    template<typename Key, typename T, typename Compare = std::less<Key>,
-        typename Alloc = std::allocator<std::pair<const Key, T> >>
+    template<class Key, class T, class Compare = std::less<Key>,
+        class Alloc = std::allocator<std::pair<const Key, T> > >
     class map {
     public:
         typedef Key                                                         key_type;
@@ -53,9 +56,23 @@ namespace ft {
         // Empty constructor
         explicit map (const key_compare& comp = key_compare(),
                       const allocator_type& alloc = allocator_type()) :
-                _alloc(alloc), _comp(comp), _bst(), _size(0) {}
+        _alloc(alloc), _comp(comp), _bst(), _size(0)
+        {
 
+        }
 
+        template <class InputIterator>
+        map (InputIterator first, InputIterator last, const key_compare &comp = key_compare(),
+             const allocator_type &alloc = allocator_type()) :
+             _alloc(alloc), _comp(comp), _bst(), _size(0)
+        {
+            this->insert(first, last);
+        }
+
+        map (const map &x) : _alloc(x._alloc), _comp(x._comp), _bst(), _size(0)
+        {
+            this->insert(x.begin(), x.end());
+        }
         /*
          * Destructors
          */

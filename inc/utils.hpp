@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include "iterator_traits.hpp"
 
 namespace ft {
     template<class InputIterator>

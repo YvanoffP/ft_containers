@@ -2,6 +2,7 @@
 #define BST_HPP
 
 # include "utils.hpp"
+# include "pair.hpp"
 
 namespace ft {
     template < class T, class Key, class Compare = std::less<Key>, class Node = ft::BST_Node<T>,
@@ -38,7 +39,7 @@ namespace ft {
                 // comparison operators. just P node pointers
                 bool operator== (const BstIterator& rhs) const
                 {
-                    return (this->_node_ptr = rhs._node_ptr);
+                    return (this->_node_ptr == rhs._node_ptr);
                 }
 
                 bool operator!= (const BstIterator& rhs) const

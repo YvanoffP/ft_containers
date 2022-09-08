@@ -82,6 +82,7 @@ namespace ft {
 
         vector (const vector &x) : _size(0), _capacity(0), _vec(NULL), _alloc(x._alloc)
         {
+            this->insert(this->begin(), x.begin(), x.end());
             *this = x;
         }
 
