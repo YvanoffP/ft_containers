@@ -41,38 +41,12 @@ namespace ft {
         BST_Node*   left;
         BST_Node*   right;
 
-        /*
-         * Default constructors
-         */
-        BST_Node ():
-                value(),
-                parent(NULL),
-                left(NULL),
-                right(NULL)
-        {}
-
-        /*
-         * Value copy node 
-         */
-        BST_Node (const value_type& val, BST_Node* parent = NULL,
-                  BST_Node* left = NULL, BST_Node* right = NULL):
+        BST_Node (const value_type& val, BST_Node* left,
+                  BST_Node* right, BST_Node* parent):
                 value(val),
                 parent(parent),
                 left(left),
-                right(right)
-        {}
-
-        /*
-         * Copy constructor
-         */
-        BST_Node (const BST_Node& nd):
-                value(nd.value),
-                parent(nd.parent),
-                left(nd.left),
-                right(nd.right)
-        {}
-
-        virtual ~BST_Node() {}
+                right(right) {}
 
         /*
          * Assignation op

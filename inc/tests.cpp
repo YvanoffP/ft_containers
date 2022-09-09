@@ -12,6 +12,9 @@
 #include "bst.hpp"
 #include <map>
 #include "./map.hpp"
+#include <utility>
+#include <list>
+#include <string>
 
 
 /*class B {
@@ -95,6 +98,39 @@ int main()
         std::cout << "Upper bound of 38 is :" << test2.upper_bound(38)->first << std::endl;
         test2.print();
 
+        /*test2.erase(test2.begin());
+        ft::map<int, int>::const_iterator it = test2.begin(), ite = test2.end();
+        std::cout << std::endl << "Content is:" << std::endl;
+        for (; it != ite; ++it)
+            std::cout << "- " << "cc" << std::endl;*/
+    }
+    {
+        std::list<std::pair<const int, std::string> > lst;
+        unsigned int lst_size = 10;
+        for (unsigned int i = 0; i < lst_size; ++i)
+            lst.push_back(std::pair<const int, std::string>(i, std::string((lst_size - i), i + 65)));
+        ft::map<int, std::string> mp(lst.begin(), lst.end());
+        /*printSize(mp);
+
+        ft_erase(mp, ++mp.begin());
+
+        ft_erase(mp, mp.begin());
+        ft_erase(mp, --mp.end());
+
+        ft_erase(mp, mp.begin(), ++(++(++mp.begin())));
+        ft_erase(mp, --(--(--mp.end())), --mp.end());
+
+        mp[10] = "Hello";
+        mp[11] = "Hi there";
+        printSize(mp);*/
+        //ft_erase(mp, --(--(--mp.end())), mp.end());
+
+        mp[12] = "ONE";
+        mp[13] = "TWO";
+        mp[14] = "THREE";
+        mp[15] = "FOUR";
+        /*printSize(mp);
+        ft_erase(mp, mp.begin(), mp.end());*/
     }
     /*{
 
