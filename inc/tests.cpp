@@ -97,8 +97,10 @@ int main()
 
         ft::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
         --(--ite);
+    --(--ite);
 
-        std::cout << "End first : " << ite->first << std::endl;
+
+    std::cout << "End first : " << ite->first << std::endl;
 
         for (int i = 0; it != ite; ++it)
             it->second = ++i * 5;

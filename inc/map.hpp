@@ -93,7 +93,7 @@ namespace ft {
         // ------------------------------------ ITERATOR METHODS -------------------------------------
 
         iterator begin() { return (_bst.begin()); }
-        const_iterator begin() const {return ( _bst.begin()); }
+        const_iterator begin() const { return (_bst.begin()); }
         iterator end() { return (_bst.end()); }
         const_iterator end() const { return (_bst.end()); }
         // Reverse Iterator methods

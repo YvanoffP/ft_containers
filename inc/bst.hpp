@@ -21,6 +21,8 @@ namespace ft {
         private:
             node_alloc  _alloc;
             node        *_root;
+
+        public:
         /*
          * BINARY SEARCH ITERATOR =========================================================
          */
@@ -154,7 +156,7 @@ namespace ft {
                 }
 
                 // predecrement. move backward to largest value < current value
-                BstIterator  operator-- ()
+                BstIterator &operator-- ()
                 {
                     node *p;
                     if (_node_ptr == NULL)
