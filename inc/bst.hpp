@@ -54,7 +54,7 @@ namespace ft {
                 BstIterator() : _node_ptr(NULL), _tree_ptr(NULL) {};
                 BstIterator(node *n, const Binary_search_tree *t): _node_ptr(n), _tree_ptr(t){}
                 BstIterator(const BstIterator &rhs) : _node_ptr(rhs._node_ptr), _tree_ptr(rhs._tree_ptr) {}
-                ~BstIterator() {}
+                ~BstIterator() { }
 
                 // ------------------------------------ OPERATOR OVERLOAD -------------------------------------
 
@@ -168,7 +168,7 @@ namespace ft {
                     }
                     else {
                         if (_node_ptr->left != NULL) {
-                            _node_ptr = _node_ptr->left;
+                            this->_node_ptr = this->_node_ptr->left;
                             while (_node_ptr->right != NULL) {
                                 _node_ptr = _node_ptr->right;
                             }
@@ -220,7 +220,7 @@ namespace ft {
             */
             ~Binary_search_tree( )
             {
-                //todo : uncomment this but we leak.. : makeEmpty( );
+                makeEmpty( );
             }
             // ------------------------------------ MEMBERS METHOD -------------------------------------
             /**
@@ -389,9 +389,9 @@ namespace ft {
             {
                 if( node == NULL )
                     return false;
-                else if( Compare()(x.first, node->value.first) )
+                else if( Compare()(x, node->value.first) )
                     return containsKey( x, node->left );
-                else if( Compare()(node->value.first, x.first) )
+                else if( Compare()(node->value.first, x) )
                     return containsKey( x, node->right );
                 else
                     return true;    // Match

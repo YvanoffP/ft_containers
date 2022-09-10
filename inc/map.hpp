@@ -77,7 +77,7 @@ namespace ft {
          */
         ~map()
         {
-            //todo : uncomment this but we leak.. : this->clear();
+            this->clear();
         }
 
 
