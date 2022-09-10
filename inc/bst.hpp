@@ -549,6 +549,7 @@ namespace ft {
                         t->parent = oldNode->parent;
                     _alloc.destroy(oldNode);
                     _alloc.deallocate(oldNode, 1);
+                    is_removed = true;
                 }
             }
 
@@ -576,6 +577,7 @@ namespace ft {
                         t->parent = oldNode->parent;
                     _alloc.destroy(oldNode);
                     _alloc.deallocate(oldNode, 1);
+                    is_removed = true;
                 }
             }
 

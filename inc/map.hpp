@@ -88,10 +88,6 @@ namespace ft {
             this->clear();
 
             this->insert(x.begin(), x.end());
-            this->_alloc = x._alloc;
-            this->_comp = x._comp;
-            this->_bst = x._bst;
-            this->_size = x._size;
             return (*this);
         }
         // ------------------------------------ ITERATOR METHODS -------------------------------------
@@ -180,18 +176,16 @@ namespace ft {
 
         void clear()
         {
-            this->_bst.makeEmpty();
-            this->_size = 0;
+            this->erase(this->begin(), this->end());
         }
 
         void erase(iterator position)
         {
             bool is_removed = true;
 
-
             _bst.remove(*position, is_removed);
             if (is_removed == true)
-                this->_size += 1;
+                this->_size -= 1;
         }
 
         size_type erase(const key_type &x)
