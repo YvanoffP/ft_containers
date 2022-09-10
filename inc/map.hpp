@@ -283,7 +283,7 @@ namespace ft {
         }
         iterator find(const key_type &x) { return (_bst.find(x)); }
         // Count returns the number of elements containing the parameter (key x)
-        size_type count(const key_type &x) const { return (_bst.containsKey(x)); }
+        size_type count(const key_type &x) const { return (_bst.containsKey(x, this->_root)); }
 
         // Methods from CPP 11 and later : contains
 
