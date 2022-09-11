@@ -524,7 +524,7 @@ namespace ft {
                     _vec = tmp;
                 }
             }
-            else
+            else if (n != 0)
             {
                 size_type new_end = _size + n;
                 for (iterator end_scope = this->end(); end_scope != position; end_scope--)
@@ -538,7 +538,6 @@ namespace ft {
                 }
                 _size += n;
             }
-
         }
 
             /*
