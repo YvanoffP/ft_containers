@@ -239,10 +239,9 @@ namespace ft {
              */
             node *findMin( node *t ) const
             {
-                node *tmp;
-                if( isEmpty( ) )
+                node *tmp = t;
+                if( isEmpty( ) || tmp == NULL)
                     return NULL;
-                tmp = t;
                 while (tmp->left != NULL)
                     tmp = tmp->left;
                 return (tmp);
@@ -254,10 +253,9 @@ namespace ft {
              */
             node *findMax( node *t ) const
             {
-                node *tmp;
-                if( isEmpty( ) )
+                node *tmp = t;
+                if( isEmpty( ) || tmp == NULL)
                     return NULL;
-                tmp = t;
                 while (tmp->right != NULL)
                     tmp = tmp->right;
                 return (tmp);
@@ -377,21 +375,37 @@ namespace ft {
             iterator begin() { return (iterator(findMin(this->_root), this)); }
             const_iterator begin() const { return (const_iterator(findMin(this->_root), this)); }
 
+            bool contains(const value_type &x, node *node) const
+            {
+                if (node == NULL)
+                    return (false);
+                else if (Compare()(x.first, node->value->first))
+                    return contains(x, node->left);
+                else if (Compare()(node->value->first, x.first))
+                    return contains(x. node->value->right);
+                else
+                    return (true);
+            }
             /**
              * @param x
              * @param node
              * @return True if the key exists, false if not
              */
-            bool containsKey( const value_type & x, node *node) const
+            size_type containsKey( const key_type &x) const
             {
-                if( node == NULL )
-                    return false;
-                else if( Compare()(x, node->value.first) )
-                    return containsKey( x, node->left );
-                else if( Compare()(node->value.first, x) )
-                    return containsKey( x, node->right );
-                else
-                    return true;    // Match
+                node *tmp = this->_root;
+
+                if( tmp == NULL )
+                    return 0;
+                while ( tmp != NULL ) {
+                    if (Compare()(x, tmp->value.first))
+                        tmp = tmp->left;
+                    else if (Compare()(tmp->value.first, x))
+                        tmp = tmp->right;
+                    else
+                        return (1); // Match
+                }
+                return (0);
             }
 
            /* void reorganize_tree(node *checker, node *root)
@@ -460,6 +474,50 @@ namespace ft {
                 }
             }
 
+            iterator find( const value_type & x )
+            {
+                node *tmp = this->_root;
+
+                if( tmp == NULL )
+                    return end();
+                while (tmp != NULL && tmp->value.first != x.first)
+                    tmp = (Compare()(x.first, tmp->value.first) ? tmp->left : tmp->right);
+                return (iterator(tmp, this));
+            }
+
+            const_iterator find( const value_type & x ) const
+            {
+                node *tmp = this->_root;
+
+                if( tmp == NULL )
+                    return end();
+                while (tmp != NULL && tmp->value.first != x.first)
+                    tmp = (Compare()(x.first, tmp->value.first) ? tmp->left : tmp->right);
+                return (const_iterator(tmp, this));
+            }
+
+            iterator find( const key_type & x )
+            {
+                node *tmp = this->_root;
+
+                if( tmp == NULL )
+                    return end();
+                while (tmp != NULL && tmp->value.first != x)
+                    tmp = (Compare()(x, tmp->value.first) ? tmp->left : tmp->right);
+                return (iterator(tmp, this));
+            }
+
+            const_iterator find( const key_type & x ) const
+            {
+                node *tmp = this->_root;
+
+                if( tmp == NULL )
+                    return end();
+                while (tmp != NULL && tmp->value.first != x)
+                    tmp = (Compare()(x, tmp->value.first) ? tmp->left : tmp->right);
+                return (const_iterator(tmp, this));
+            }
+
         private:
             node *insert(node *&start, node *parent, const value_type &val,  bool &is_added)
             {
@@ -491,50 +549,6 @@ namespace ft {
                 rhs->value.first = tmp.value.first;
                 rhs->value.second = tmp.value.second;
 
-            }
-
-            iterator find( const value_type & x )
-            {
-                node *tmp = this->_root;
-
-                if( tmp == NULL )
-                    return end();
-                while (tmp != NULL && tmp->value.first != x.first)
-                    tmp = (Compare()(x.first, tmp->value.first ? tmp->left : tmp->right));
-                return (iterator(tmp, this));
-            }
-
-            const_iterator find( const value_type & x ) const
-            {
-                node *tmp = this->_root;
-
-                if( tmp == NULL )
-                    return end();
-                while (tmp != NULL && tmp->value.first != x.first)
-                    tmp = (Compare()(x.first, tmp->value.first ? tmp->left : tmp->right));
-                return (const_iterator(tmp, this));
-            }
-
-            iterator find( const key_type & x )
-            {
-                node *tmp = this->_root;
-
-                if( tmp == NULL )
-                    return end();
-                while (tmp != NULL && tmp->value.first != x)
-                    tmp = (Compare()(x.first, tmp->value.first ? tmp->left : tmp->right));
-                return (iterator(tmp, this));
-            }
-
-            const_iterator find( const key_type & x ) const
-            {
-                node *tmp = this->_root;
-
-                if( tmp == NULL )
-                    return end();
-                while (tmp != NULL && tmp->value.first != x)
-                    tmp = (Compare()(x.first, tmp->value.first ? tmp->left : tmp->right));
-                return (const_iterator(tmp, this));
             }
 
             void printBT(const std::string& prefix, const Node* node, bool isLeft)

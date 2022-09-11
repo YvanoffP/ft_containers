@@ -21,9 +21,9 @@ namespace ft {
         typedef typename allocator_type::const_pointer                      const_pointer;
 
         typedef typename ft::Binary_search_tree<value_type,
-            key_type>::const_iterator                                       const_iterator;
+            key_type, key_compare>::const_iterator                                       const_iterator;
         typedef typename ft::Binary_search_tree<value_type,
-                key_type>::iterator                                         iterator;
+                key_type, key_compare>::iterator                                         iterator;
         typedef typename ft::reverse_iterator<iterator>                     reverse_iterator;
         typedef typename ft::reverse_iterator<const_iterator>               const_reverse_iterator;
         typedef typename ft::iterator_traits<iterator>::difference_type     difference_type;
@@ -46,10 +46,10 @@ namespace ft {
 
     private:
 
-        allocator_type                              _alloc;
-        key_compare                                 _comp;
-        Binary_search_tree<value_type, key_type>    _bst;
-        size_type                                   _size;
+        allocator_type                                          _alloc;
+        key_compare                                             _comp;
+        Binary_search_tree<value_type, key_type, key_compare>   _bst;
+        size_type                                               _size;
 
     public:
         // ------------------------------------ CONSTRUCTOR DESTRUCTOR -------------------------------------
@@ -164,13 +164,14 @@ namespace ft {
                 allocator_type  tmp_alloc = x._alloc;
                 key_compare     tmp_comp = x._comp;
                 size_type       tmp_size = x._size;
-                this->_comp = x._comp;
-                this->_size = x._size;
-                this->_alloc = x._alloc;
-                x._comp = tmp_comp;
-                x._alloc = tmp_alloc;
-                x._size = tmp_size;
-                _bst.swap(x);
+
+                x._comp = this->_comp;
+                x._size = this->_size;
+                x._alloc = this->_alloc;
+                this->_comp = tmp_comp;
+                this->_alloc = tmp_alloc;
+                this->_size = tmp_size;
+                _bst.swap(x._bst);
             }
         }
 
@@ -282,8 +283,10 @@ namespace ft {
             return (it);
         }
         iterator find(const key_type &x) { return (_bst.find(x)); }
+        const_iterator find(const key_type &x) const { return (_bst.find(x)); }
+
         // Count returns the number of elements containing the parameter (key x)
-        size_type count(const key_type &x) const { return (_bst.containsKey(x, this->_root)); }
+        size_type count(const key_type &x) const { return (_bst.containsKey(x)); }
 
         // Methods from CPP 11 and later : contains
 
