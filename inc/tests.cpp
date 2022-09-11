@@ -60,6 +60,18 @@ void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
 #define T2 int
 typedef ft::pair<const T1, T2> T3;
 
+template <class MAP>
+void	cmp(const MAP &lhs, const MAP &rhs)
+{
+    static int i = 0;
+
+    std::cout << "############### [" << i++ << "] ###############"  << std::endl;
+    std::cout << "eq: " << (lhs == rhs) << " | ne: " << (lhs != rhs) << std::endl;
+    std::cout << "lt: " << (lhs <  rhs) << " | le: " << (lhs <= rhs) << std::endl;
+    std::cout << "gt: " << (lhs >  rhs) << " | ge: " << (lhs >= rhs) << std::endl;
+}
+
+/*
 
 template <typename T>
 std::string    printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
@@ -83,10 +95,35 @@ void    printSize(T_MAP const &mp, bool print_content = 1)
             std::cout << "- " << printPair(it, false) << std::endl;
     }
     std::cout << "###############################################" << std::endl;
-}
+}*/
 int main()
 {
-        std::list<T3> lst;
+    ft::map<T1, T2> mp1;
+    ft::map<T1, T2> mp2;
+
+    mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
+    mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
+
+    cmp(mp1, mp1); // 0
+    cmp(mp1, mp2); // 1
+
+    mp2['e'] = 6; mp2['f'] = 7; mp2['h'] = 8; mp2['h'] = 9;
+
+    cmp(mp1, mp2); // 2
+    cmp(mp2, mp1); // 3
+
+    (++(++mp1.begin()))->second = 42;
+
+    cmp(mp1, mp2); // 4
+    cmp(mp2, mp1); // 5
+
+    swap(mp1, mp2);
+
+    cmp(mp1, mp2); // 6
+    cmp(mp2, mp1); // 7
+
+    return (0);
+/*        std::list<T3> lst;
         unsigned int lst_size = 7;
         for (unsigned int i = 0; i < lst_size; ++i)
             lst.push_back(T3(lst_size - i, i));
@@ -117,7 +154,7 @@ int main()
 
         std::cout << "Third print : " << std::endl;
         printSize(mp);
-        return (0);
+        return (0);*/
     /*{
         ft::map<int, int> test;
         ft::pair<int, int> kk1(1, 26);
