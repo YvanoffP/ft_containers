@@ -16,8 +16,8 @@ namespace ft {
     template< typename T, typename Alloc = std::allocator<T> >
     class vector {
     public:
-        typedef Alloc allocator_type;
-        typedef T value_type;
+        typedef Alloc                                           allocator_type;
+        typedef T                                               value_type;
         typedef typename allocator_type::reference              reference;
         typedef typename allocator_type::const_reference        const_reference;
         typedef typename allocator_type::pointer                pointer;
@@ -45,7 +45,6 @@ namespace ft {
         size_type _capacity;
         pointer _vec;
         allocator_type _alloc;
-
 
     public:
         /*
@@ -82,13 +81,13 @@ namespace ft {
 
         vector (const vector &x) : _size(0), _capacity(0), _vec(NULL), _alloc(x._alloc)
         {
-            this->insert(this->begin(), x.begin(), x.end());
             *this = x;
         }
 
         ~vector() {
             this->clear();
-            _alloc.deallocate(_vec, _capacity);
+            if (_capacity != 0)
+                _alloc.deallocate(_vec, _capacity);
         }
 
         /*
@@ -117,10 +116,17 @@ namespace ft {
          * Operator ------------------------------------------------------------------------------------------------
          */
         vector &operator=(const vector &rhs) {
-            if (rhs == *this)
+            if (this == &rhs)
                 return (*this);
             this->clear();
-            this->insert(this->end(), rhs.begin(), rhs.end());
+            if (this->capacity() < rhs.capacity())
+                this->reserve(rhs.capacity());
+            for (size_type i = 0; i < rhs.size(); i++) {
+                _alloc.construct(_vec + i, rhs._vec[i]);
+            }
+            _size = rhs.size();
+            _capacity = rhs.capacity();
+            //this->insert(this->end(), rhs.begin(), rhs.end());
             return (*this);
         }
 
@@ -497,10 +503,19 @@ namespace ft {
             {
                 if (this->size() == 0)
                 {
-
                     this->_vec = _alloc.allocate(n);
-                    for (size_type i = 0; i < n; i++)
-                        _alloc.construct(this->_vec + i, *first++);
+                    for (size_type i = 0; i < n; i++) {
+                        try {_alloc.construct(this->_vec + i, *first++);}
+                        catch(...)
+                        {
+                            _size = i;
+                            _capacity = n;
+                            this->clear();
+                            _alloc.deallocate(_vec, n);
+                            _capacity = 0;
+                            throw std::exception();
+                        }
+                    }
                     this->_size = n;
                     this->_capacity = n;
                 }
@@ -564,7 +579,6 @@ namespace ft {
                 this->_size = _size_tmp;
                 this->_capacity = _capacity_tmp;
             }
-
     };
 
     /*
@@ -642,7 +656,7 @@ namespace ft {
      * overload of swap vect.
      */
     template <class T, class Alloc>
-        void swap(vector<T,Alloc>& x, vector<T,Alloc>&y)
+        void swap(vector<T,Alloc> &x, vector<T,Alloc> &y)
         {
             x.swap(y);
         }
