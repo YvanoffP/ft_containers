@@ -40,11 +40,11 @@ namespace ft {
 
     template<class _T1, class _T2>
     bool operator<=(const ft::pair<_T1, _T2> &lhs, const ft::pair<_T1, _T2> &rhs)
-    { return lhs <= rhs; }
+    { return !(rhs < lhs); }
 
     template<class _T1, class _T2>
     bool operator>=(const ft::pair<_T1, _T2> &lhs, const ft::pair<_T1, _T2> &rhs)
-    { return lhs >= rhs; }
+    { return !(lhs < rhs); }
 
     template<class _T1, class _T2>
     bool operator<(const ft::pair<_T1, _T2> &lhs, const ft::pair<_T1, _T2> &rhs)
@@ -52,7 +52,7 @@ namespace ft {
 
     template<class _T1, class _T2>
     bool operator>(const ft::pair<_T1, _T2> &lhs, const ft::pair<_T1, _T2> &rhs)
-    { return lhs > rhs; }
+    { return !(lhs < rhs); }
 
     template<class _T1, class _T2>
     ft::pair<_T1, _T2> make_pair(_T1 lhs, _T2 rhs)

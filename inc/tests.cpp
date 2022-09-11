@@ -58,6 +58,9 @@ void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
 }*/
 #define T1 int
 #define T2 int
+#define	_map 				ft::map
+#define	_make_pair 			ft::make_pair
+
 typedef ft::pair<const T1, T2> T3;
 
 template <class MAP>
@@ -96,9 +99,38 @@ void    printSize(T_MAP const &mp, bool print_content = 1)
     }
     std::cout << "###############################################" << std::endl;
 }*/
+#define T int
+#define V int
+
 int main()
 {
-    ft::map<T1, T2> mp1;
+
+    /*ft::map<int, int> mp;
+    std::vector<int> v;
+
+    mp.insert(_make_pair(5, 5));
+    mp.insert(_make_pair(3, 3));
+    mp.insert(_make_pair(7, 7));
+    _map<int, int>::reverse_iterator rit = mp.rbegin();
+    _map<int, int>::reverse_iterator rit2 = mp.rend();
+    v.push_back(rit->first);
+    rit++;
+    rit2--;
+    v.push_back(rit->first);
+    v.push_back(rit2->first);
+    rit++;
+    v.push_back(*rit == *rit2);
+    rit2--;
+    v.push_back(rit->first);
+    v.push_back(rit2->first);
+    v.push_back(*rit2 > *rit);
+    v.push_back(*rit2 < *rit);
+    v.push_back((--rit)->first);
+    v.push_back((++rit2)->first);
+    v.push_back((rit--)->first);
+    v.push_back((rit2++)->first);
+    return (0);*/
+    /*ft::map<T1, T2> mp1;
     ft::map<T1, T2> mp2;
 
     mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
@@ -122,7 +154,7 @@ int main()
     cmp(mp1, mp2); // 6
     cmp(mp2, mp1); // 7
 
-    return (0);
+    return (0);*/
 /*        std::list<T3> lst;
         unsigned int lst_size = 7;
         for (unsigned int i = 0; i < lst_size; ++i)

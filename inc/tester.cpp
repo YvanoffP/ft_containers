@@ -6,7 +6,7 @@
 #include "map.hpp"
 #include "vector.hpp"
 #include <stdlib.h>
-#include "colors.hpp"
+//#include "colors.hpp"
 #include <chrono>
 using namespace std::chrono;
 
@@ -37,7 +37,7 @@ void	ft_vector()
 
     // Tests Vector
 
-    std::cout << UNDL(BOLD(FBLU("\n\nVector"))) << std::endl << std::endl;
+    std::cout << "\n\nVector" << std::endl << std::endl;
 
     // Test push_back
 
@@ -66,14 +66,14 @@ void	ft_vector()
 
     std::cout << "push_back = ";
     if (result == 1)
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT =  " << ft_round(ft_push_back_diff) << " | STD = " << ft_round(std_push_back_diff) << " | Diff =  " << (int)(ft_push_back_diff / std_push_back_diff) << " | ";
     if (ft_push_back_diff / std_push_back_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
 
     // Test erase()
@@ -101,17 +101,17 @@ void	ft_vector()
         erase_i++;
     }
     if (ft_vector_int.size() != std_vector_int.size() || erase_result != 0)
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT = " << ft_round(ft_erase_diff) << " | STD = " << ft_round(std_erase_diff) + 1 << " | Diff = " << (int)(ft_erase_diff / std_erase_diff) << " | ";
 
     if (std_erase_diff == 0 && ft_erase_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_erase_diff / std_erase_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
     // Test insert()
     std::clock_t ft_insert = std::clock();
@@ -138,17 +138,17 @@ void	ft_vector()
         insert_i++;
     }
     if (ft_vector_int.size() != std_vector_int.size())
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT = " << ft_round(ft_insert_diff) << " | STD = " << ft_round(std_insert_diff) + 1 << " | Diff = " << (int)(ft_round(ft_insert_diff / (std_insert_diff + 1))) << " | ";
 
     if (((int)std_insert_diff == 0 || (int)std_insert_diff == 1) && ft_insert_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_insert_diff / std_insert_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
 
     // Test resize()
@@ -162,17 +162,17 @@ void	ft_vector()
 
     std::cout << "resize    = ";
     if (ft_vector_int.size() != std_vector_int.size())
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT =  " << ft_round(ft_resize_diff) << " | STD = " << ft_round(std_resize_diff) << " | Diff =  " << (int)(ft_resize_diff / std_resize_diff) << " | ";
 
     if (std_resize_diff == 0 && ft_resize_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_resize_diff / std_resize_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
 
 
@@ -197,17 +197,17 @@ void	ft_vector()
 
     std::cout << "pop_back  = ";
     if (ft_vector_int.size() != std_vector_int.size())
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT =  " << ft_round(ft_pop_back_diff) << " | STD = " << ft_round(std_pop_back_diff) << " | Diff =  " << (int)(ft_pop_back_diff / std_pop_back_diff) << " | ";
 
     if (std_pop_back_diff == 0 && ft_pop_back_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_pop_back_diff / std_pop_back_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
     // Test swap()
     ft::vector<int>		ft_vector_swap(ft_vector_int);
@@ -236,20 +236,20 @@ void	ft_vector()
     }
     std::cout << "swap      = ";
     if (swap_result != 0)
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT =  " << ft_round(ft_swap_diff) << " | STD = " << ft_round(std_swap_diff) << " | Diff =  ";
     if ((int)(ft_swap_diff / std_swap_diff) <= 0)
         std::cout << "0" << " | ";
     else
         std::cout << (int)(ft_swap_diff / std_swap_diff) << " | ";
     if (std_swap_diff == 0 && ft_swap_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_swap_diff / std_swap_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
     ft_vector_int.swap(ft_vector_swap);
     std_vector_int.swap(std_vector_swap);
@@ -265,17 +265,17 @@ void	ft_vector()
 
     std::cout << "clear     = ";
     if (ft_vector_int.size() != std_vector_int.size())
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT =  " << ft_round(ft_clear_diff) << " | STD = " << ft_round(std_clear_diff) << " | Diff =  " << (int)(ft_clear_diff / std_clear_diff) << " | ";
 
     if (std_clear_diff == 0 && ft_clear_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_clear_diff / std_clear_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
     // Test operators
 
@@ -295,39 +295,39 @@ void	ft_vector()
 
     std::cout << "operators = ";
     if (operator_result == 0)
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     std::cout << " | == : ";
     if ((ft_vector_int[0] == ft_vector_int[1]) != (std_vector_int[0] == std_vector_int[1]))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | != : ";
     if ((ft_vector_int[0] != ft_vector_int[1]) != (std_vector_int[0] != std_vector_int[1]))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | < : ";
     if ((ft_vector_int[0] < ft_vector_int[1]) != (std_vector_int[0] < std_vector_int[1]))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | <= : ";
     if ((ft_vector_int[0] <= ft_vector_int[1]) != (std_vector_int[0] <= std_vector_int[1]))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | > : ";
     if ((ft_vector_int[0] > ft_vector_int[1]) != (std_vector_int[0] > std_vector_int[1]))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | >= : ";
     if ((ft_vector_int[0] >= ft_vector_int[1]) != (std_vector_int[0] >= std_vector_int[1]))
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
 
     // Test capacity
     int capacity_result = 0;
@@ -342,36 +342,36 @@ void	ft_vector()
 
     std::cout << "capacity  = ";
     if (capacity_result == 0)
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     std::cout << " | empty = ";
     if (ft_vector_int.empty() == std_vector_int.empty())
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     std::cout << " | size = ";
     if (ft_vector_int.size() == std_vector_int.size())
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     std::cout << " | max_size = ";
     if (ft_vector_int.max_size() == std_vector_int.max_size())
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     std::cout << " | capacity = ";
     if (ft_vector_int.capacity() == std_vector_int.capacity())
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     std::cout << " | reserve = ";
     ft_vector_int.reserve(ft_vector_int.capacity() + 1);
     std_vector_int.reserve(std_vector_int.capacity() + 1);
     if (ft_vector_int.size() == std_vector_int.size())
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 }
 
 
@@ -382,7 +382,7 @@ void	ft_map()
 
     // Tests Map
 
-    std::cout << UNDL(BOLD(FBLU("\nMap"))) << std::endl << std::endl;
+    std::cout << "\nMap" << std::endl << std::endl;
 
     // Test  insert
     std::clock_t ft_insert_map = std::clock();
@@ -412,18 +412,18 @@ void	ft_map()
     }
     std::cout << "insert    = ";
     if (insert_result_map != 0)
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
 
     std::cout << " | Duration : FT = " << ft_round(ft_insert_map_diff) << " | STD = " << ft_round(std_insert_map_diff) << " | Diff = " << (int)(ft_insert_map_diff / std_insert_map_diff) << " | ";
 
     if (std_insert_map_diff == 0 && ft_insert_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_insert_map_diff / std_insert_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
     // Test erase()
     std::clock_t ft_erase_map = std::clock();
@@ -450,17 +450,17 @@ void	ft_map()
         erase_map_i++;
     }
     if (ft_map.size() != std_map.size() || erase_map_result != 0)
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT = " << ft_round(ft_erase_map_diff) << " | STD = " << ft_round(std_erase_map_diff) << " | Diff = " << (int)(ft_erase_map_diff / std_erase_map_diff) << " | ";
 
     if (std_erase_map_diff == 0 && ft_erase_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_erase_map_diff / std_erase_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
     // Test swap()
     ft::map<int, std::string>	ft_map_swap;
@@ -489,20 +489,20 @@ void	ft_map()
     }
     std::cout << "swap      = ";
     if (swap_map_result != 0)
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT = " << ft_round(ft_swap_map_diff) << " | STD = " << ft_round(std_swap_map_diff) << " | Diff = ";
     if ((int)(ft_swap_map_diff / std_swap_map_diff) <= 0 || !isfinite((int)(ft_swap_map_diff / std_swap_map_diff)))
         std::cout << "0" << " | ";
     else
         std::cout << ft_swap_map_diff / std_swap_map_diff << " | ";
     if (std_swap_map_diff == 0 && ft_swap_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_swap_map_diff / std_swap_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
     ft_map.swap(ft_map_swap);
     std_map.swap(std_map_swap);
@@ -518,9 +518,9 @@ void	ft_map()
 
     std::cout << "count     = ";
     if (ft_return != std_return)
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT = " << ft_round(ft_count_map_diff) << " | STD = " << ft_round(std_count_map_diff) << " | Diff = ";
     if (isnan((int)(ft_count_map_diff / std_count_map_diff)) || isinf((int)(ft_count_map_diff / std_count_map_diff)) || (int)(ft_count_map_diff / std_count_map_diff) == -2147483648)
         std::cout << "0" << " | ";
@@ -528,11 +528,11 @@ void	ft_map()
         std::cout << (int)(ft_count_map_diff / std_count_map_diff) << " | ";
 
     if (std_count_map_diff == 0 && ft_count_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_count_map_diff / std_count_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
 
     // Test find()
@@ -546,9 +546,9 @@ void	ft_map()
 
     std::cout << "find      = ";
     if (ft_find_iterator->second != std_find_iterator->second)
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | Duration : FT = " << ft_round(ft_find_map_diff) << " | STD = " << ft_round(std_find_map_diff) << " | Diff = ";
     if (isnan((int)(ft_find_map_diff / std_find_map_diff)) || (int)(ft_find_map_diff / std_find_map_diff)== -2147483648)
         std::cout << "0" << " | ";
@@ -556,11 +556,11 @@ void	ft_map()
         std::cout << (int)(ft_find_map_diff / std_find_map_diff) << " | ";
 
     if (std_find_map_diff == 0 && ft_find_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else if (ft_find_map_diff / std_find_map_diff <= 20)
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
 
     // Test operators
 
@@ -586,39 +586,39 @@ void	ft_map()
 
     std::cout << "operators = ";
     if (operator_result == 0)
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     else
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     std::cout << " | == : ";
     if ((ft_operator_i->second == ft_operator_i2->second) != (std_operator_i->second == std_operator_i2->second))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | != : ";
     if ((ft_operator_i->second != ft_operator_i2->second) != (std_operator_i->second != std_operator_i2->second))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | < : ";
     if ((ft_operator_i->second < ft_operator_i2->second) != (std_operator_i->second < std_operator_i2->second))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | <= : ";
     if ((ft_operator_i->second <= ft_operator_i2->second) != (std_operator_i->second <= std_operator_i2->second))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | > : ";
     if ((ft_operator_i->second > ft_operator_i2->second) != (std_operator_i->second > std_operator_i2->second))
-        std::cout << FRED("KO");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK");
+        std::cout << "OK\n";
     std::cout << " | >= : ";
     if ((ft_operator_i->second >= ft_operator_i2->second) != (std_operator_i->second >= std_operator_i2->second))
-        std::cout << FRED("KO\n");
+        std::cout << "KO\n";
     else
-        std::cout << FGRN("OK\n");
+        std::cout << "OK\n";
     std::cout << std::endl << std::endl;
 }
 
@@ -630,14 +630,15 @@ float	ft_round(double var)
 
 void	ft_banner()
 {
-    std::cout << BOLD(FBLU("##################################################################################################\n"));
-    std::cout << BOLD(FBLU("#  ____ ___     ____ ____ _  _ ___ ____ _ _  _ ____ ____ ____     ___ ____ ____ ___ ____ ____    #\n"));
-    std::cout << BOLD(FBLU("#  |___  |      |    |  | |\\ |  |  |__| | |\\ | |___ |__/ [__       |  |___ [__   |  |___ |__/    #\n"));
-    std::cout << BOLD(FBLU("#  |     |  ___ |___ |__| | \\|  |  |  | | | \\| |___ |  \\ ___] ___  |  |___ ___]  |  |___ |  \\    #\n"));
-    std::cout << BOLD(FBLU("#                                                                                                #\n"));
-    std::cout << BOLD(FBLU("#  ___  _   _    ____ _  _ _  _ ___  ____ ____                                                   #\n"));
-    std::cout << BOLD(FBLU("#  |__]  \\_/     |__| |__| |  | |__] |___ |__/                                                   #\n"));
-    std::cout << BOLD(FBLU("#  |__]   |      |  | |  | |__| |__] |___ |  \\                                                   #\n"));
-    std::cout << BOLD(FBLU("#                                                                                                #\n"));
-    std::cout << BOLD(FBLU("##################################################################################################\n"));
+    std::cout << "tkt frero met 100" <<std::endl;
+    std::cout << "##################################################################################################\n";
+    std::cout << "#  ____ ___     ____ ____ _  _ ___ ____ _ _  _ ____ ____ ____     ___ ____ ____ ___ ____ ____    #\n";
+    std::cout << "#  |___  |      |    |  | |\\ |  |  |__| | |\\ | |___ |__/ [__       |  |___ [__   |  |___ |__/    #\n";
+    std::cout << "#  |     |  ___ |___ |__| | \\|  |  |  | | | \\| |___ |  \\ ___] ___  |  |___ ___]  |  |___ |  \\    #\n";
+    std::cout << "#                                                                                                #\n";
+    std::cout << "#  ___  _   _    ____ _  _ _  _ ___  ____ ____                                                   #\n";
+    std::cout << "#  |__]  \\_/     |__| |__| |  | |__] |___ |__/                                                   #\n";
+    std::cout << "#  |__]   |      |  | |  | |__| |__] |___ |  \\                                                   #\n";
+    std::cout << "#                                                                                                #\n";
+    std::cout << "##################################################################################################\n";
 }

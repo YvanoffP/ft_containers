@@ -26,7 +26,7 @@ namespace ft {
         /*
          * BINARY SEARCH ITERATOR =========================================================
          */
-        template <typename P>
+        template <typename P, class Comp>
         class BstIterator {
             public:
 
@@ -48,15 +48,15 @@ namespace ft {
                 // with this iterator. it is used only to access the
                 // _root pointer, which is needed for ++ and --
                 // when the iterator value is end()
-                node *_node_ptr;
-                const Binary_search_tree *_tree_ptr;
+                node                        *_node_ptr;
+                const Binary_search_tree    *_tree_ptr;
 
             public:
                 // ------------------------------------ CONSTRUCTOR DESTRUCTOR -------------------------------------
                 BstIterator() : _node_ptr(NULL), _tree_ptr(NULL) {};
                 BstIterator(node *n, const Binary_search_tree *t): _node_ptr(n), _tree_ptr(t){}
                 BstIterator(const BstIterator &rhs) : _node_ptr(rhs._node_ptr), _tree_ptr(rhs._tree_ptr) {}
-                ~BstIterator() { }
+                virtual ~BstIterator() { }
 
                 // ------------------------------------ OPERATOR OVERLOAD -------------------------------------
 
@@ -69,9 +69,9 @@ namespace ft {
                     return *this;
                 }
 
-                operator BstIterator<const P>() const
+                operator BstIterator<const P, Comp>() const
                 {
-                    return (BstIterator<const P>(this->_node_ptr, this->_tree_ptr));
+                    return (BstIterator<const P, Comp>(this->_node_ptr, this->_tree_ptr));
                 }
 
                 // comparison operators. just P node pointers
@@ -205,8 +205,8 @@ namespace ft {
          * BST_Node* right;
          */
         public:
-            typedef BstIterator<value_type>         iterator;
-            typedef BstIterator<const value_type>   const_iterator;
+            typedef BstIterator<value_type, Compare>         iterator;
+            typedef BstIterator<const value_type, Compare>   const_iterator;
             // ------------------------------------ CONSTRUCTOR DESTRUCTOR -------------------------------------
 
             Binary_search_tree( ) : _root( NULL ) { }
