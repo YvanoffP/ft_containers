@@ -553,7 +553,7 @@ namespace ft {
 
             void printBT(const std::string& prefix, const Node* node, bool isLeft)
             {
-                if( node != nullptr )
+                if( node != NULL )
                 {
                     std::cout << prefix;
 
