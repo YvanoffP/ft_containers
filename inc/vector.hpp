@@ -389,17 +389,17 @@ namespace ft {
         }
 
         iterator erase(iterator first, iterator last) {
-            size_type erase = 0;
+            size_type erased = 0;
 
             for (iterator it = first; it != last; it++) {
                 _alloc.destroy(&(*it));
-                erase++;
+                erased++;
             }
             for (iterator it = first; last != this->end(); last++) {
                 *it = *(last);
                 it++;
             }
-            this->_size -= erase;
+            this->_size -= erased;
             return (first);
         }
 
@@ -521,7 +521,7 @@ namespace ft {
                 }
                 else {
                     size_type old_cap = this->capacity();
-                    if (this->size() + n > this->capacity() * 2)
+                    if (this->size() + n > this->capacity())
                         this->_capacity = n + this->size();
                     else
                         this->_capacity *= 2;

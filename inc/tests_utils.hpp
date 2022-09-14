@@ -12,6 +12,8 @@
 #include <iostream>
 #include "colors.hpp"
 
+#include <sys/time.h>
+
 #define T1 int
 #define T2 int
 
@@ -24,12 +26,12 @@
 template <typename T_VECT>
 void    printSize(T_VECT const &vect, bool print_content = 1)
 {
-    std::cout << "size: " << vect.size() << std::endl;
-    std::cout << "max_size: " << vect.max_size() << std::endl;
+    std::cout << "size: " << vect.size() << " // capacity: " << vect.capacity() << std::endl;
+    //std::cout << "max_size: " << vect.max_size() << std::endl;
     if (print_content)
     {
         typename T_VECT::const_iterator it = vect.begin(), ite = vect.end();
-        std::cout << std::endl << "Content is:" << std::endl;
+        std::cout << "Content is:" << std::endl;
         for (; it != ite; ++it)
             std::cout << "- " << *it << std::endl;
     }
@@ -73,6 +75,23 @@ void controlContent (FT_VECT my_vec, STD_VECT std_vec)
     }
     toPrint += "✅";
     std::cout << toPrint << std::endl;
+}
+
+template <class T, class Alloc>
+void    cmp(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs)
+{
+    static int i = 0;
+
+    std::cout << "############### [" << i++ << "] ###############"  << std::endl;
+    std::cout << "eq: " << (lhs == rhs) << " | ne: " << (lhs != rhs) << std::endl;
+    std::cout << "lt: " << (lhs <  rhs) << " | le: " << (lhs <= rhs) << std::endl;
+    std::cout << "gt: " << (lhs >  rhs) << " | ge: " << (lhs >= rhs) << std::endl;
+}
+
+float	ft_round(double var)
+{
+    float value = (int)(var * 100000 + .5);
+    return((float)value);
 }
 
 #endif // TESTS_UTILS_HPP
