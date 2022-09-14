@@ -1,4 +1,4 @@
-SRCS			= ./inc/tester.cpp
+SRCS			= ./inc/test_vector.cpp
 
 OBJS			= $(SRCS:.cpp=.o)
 
