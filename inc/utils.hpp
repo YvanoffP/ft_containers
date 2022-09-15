@@ -43,10 +43,9 @@ namespace ft {
 
         BST_Node (const value_type& val, BST_Node* left,
                   BST_Node* right, BST_Node* parent):
-                value(val),
                 parent(parent),
                 left(left),
-                right(right) {}
+                right(right) {value = val;}
 
         /*
          * Assignation op

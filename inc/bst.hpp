@@ -29,8 +29,7 @@ namespace ft {
         template <typename P, class Comp>
         class BstIterator {
             public:
-
-                typedef BST_Node<value_type>                                    node;
+                //typedef BST_Node<value_type>                                    node;
                 typedef P                                                       value_type;
                 typedef typename ft::iterator<ft::bidirectional_iterator_tag,
                         value_type>::difference_type                            difference_type;
