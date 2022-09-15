@@ -1,17 +1,20 @@
-#include "tests_utils.hpp"
+#include "../inc/tests_utils.hpp"
 
-#define _fvec ft::vector
-#define _svec std::vector
+static double start1;
+static double start2;
+static double end1;
+static double end2;
 
-
-
-int main(void)
+void tests_vector()
 {
+    std::cout <<
+              "████████╗███████╗███████╗████████╗███████╗    ██╗   ██╗███████╗ ██████╗████████╗ ██████╗ ██████╗  \n"
+              "╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝    ██║   ██║██╔════╝██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗ \n"
+              "   ██║   █████╗  ███████╗   ██║   ███████╗    ██║   ██║█████╗  ██║        ██║   ██║   ██║██████╔╝ \n"
+              "   ██║   ██╔══╝  ╚════██║   ██║   ╚════██║    ╚██╗ ██╔╝██╔══╝  ██║        ██║   ██║   ██║██╔══██╗ \n"
+              "   ██║   ███████╗███████║   ██║   ███████║     ╚████╔╝ ███████╗╚██████╗   ██║   ╚██████╔╝██║  ██║ \n"
+              "   ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝      ╚═══╝  ╚══════╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝ " << std::endl;
 
-    std::cout << "Welcome to the vector tests made by Yvanoff." << std::endl;
-    std::cout << "These tests are basic tests, feel free to make more your own way" << std::endl;
-    std::cout << "The diff for the timers cannot be greater that 20 times 💥" << std::endl;
-    std::cout << "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧" << std::endl;
     // Constructors tests
     {
         // ========= STD DECLARATIONS =====================
@@ -89,18 +92,23 @@ int main(void)
 
         // ========= COMPARISONS =========================
         std::cout << FGRN("Assign fill :") << std::endl;
+
         std::cout << "-----------ft----------- " << std::endl;
-        std::clock_t ft_assign = std::clock();
+        start1 = std::clock();
         ft_test.assign(250, 100);
-        double ft_assign_diff = ( std::clock() - ft_assign ) / (double) CLOCKS_PER_SEC;
+        end1 = std::clock();
         printSize(ft_test, 0);
+
         std::cout << "-----------std-----------" << std::endl;
-        std::clock_t std_assign = std::clock();
+        start2 = std::clock();
         std_test.assign(250, 100);
-        double std_assign_diff = ( std::clock() - std_assign ) / (double) CLOCKS_PER_SEC;
+        end2 = std::clock();
         printSize(std_test, 0);
-        std::cout << " | Duration : FT =  " << ft_round(ft_assign_diff) << " | STD = " << ft_round(std_assign_diff);
-        std::cout << std::endl << std::endl;
+
+        std::string toPrint;
+        double time = (end2 - start2) == 0 ? 1 : (end2 - start2);
+        toPrint = ((end1 - start1) > (time * 20)) ? FRED("Diff Time KO") : FGRN("Diff Time OK");
+        std::cout << toPrint << std::endl << std::endl;
 
         // CREATING ITERATORS ==================================
         _fvec<int>::const_iterator it_ft = ft_test.begin();
@@ -116,25 +124,29 @@ int main(void)
         // ======================================================
 
         std::cout << FGRN("Assign range :") << std::endl;
-        std::clock_t ft_assign2 = std::clock();
+
+        start1 = std::clock();
         ft_test.assign(it_ft, it2_ft);
-        double ft_assign_diff2 = ( std::clock() - ft_assign2 ) / (double) CLOCKS_PER_SEC;
+        end1 = std::clock();
+
         std::cout << "-----------ft----------- " << std::endl;
         printSize(ft_test, 0);
         std::cout << "-----------std-----------" << std::endl;
-        std::clock_t std_assign2 = std::clock();
+
+        start2 = std::clock();
         std_test.assign(it_std, it2_std);
-        double std_assign_diff2 = ( std::clock() - std_assign2 ) / (double) CLOCKS_PER_SEC;
+        end2 = std::clock();
+
         printSize(std_test, 0);
         std::cout << std::endl;
 
         std::cout << FCYN("COMPARE CONTENT----------------------") << std::endl;
         controlContent(ft_test, std_test);
-        std::cout << " | Duration : FT =  " << ft_round(ft_assign_diff2) << " | STD = " << ft_round(std_assign_diff2);
-        std::cout << std::endl << std::endl;
 
+        time = (end2 - start2) == 0 ? 1 : (end2 - start2);
+        toPrint = ((end1 - start1) > (time * 20)) ? FRED("Diff Time KO") : FGRN("Diff Time OK");
+        std::cout << toPrint << std::endl << std::endl;
     }
-
     {
         std::cout << FMAG("============== at() ==============") << std::endl;
         // ========= STD DECLARATIONS =====================
@@ -151,16 +163,25 @@ int main(void)
         ft_test.insert(it_ft, 42);
         // ========= COMPARISONS =========================
         std::cout << FGRN("assign check :") << std::endl;
+        start1 = std::clock();
         std::cout << "-----------ft----------- " << std::endl;
         std::cout << "99: " << ft_test.at(99) << " | 100: " << ft_test.at(100)
-        << " | 101: " << ft_test.at(101) << std::endl;
+                  << " | 101: " << ft_test.at(101) << std::endl;
+        end1 = std::clock();
+
         std::cout << "-----------std----------- " << std::endl;
+        start2 = std::clock();
         std::cout << "99: " << std_test.at(99) << " | 100: " << std_test.at(100)
                   << " | 101: " << std_test.at(101) << std::endl;
+        end2 = std::clock();
 
         std::cout << FCYN("COMPARE CONTENT----------------------") << std::endl;
         controlContent(ft_test, std_test);
-        std::cout << std::endl << std::endl;
+
+        std::string toPrint;
+        double time = (end2 - start2) == 0 ? 1 : (end2 - start2);
+        toPrint = ((end1 - start1) > (time * 20)) ? FRED("Diff Time KO") : FGRN("Diff Time OK");
+        std::cout << toPrint << std::endl << std::endl;
     }
 
     {
@@ -183,35 +204,57 @@ int main(void)
         std::cout << "Before erase :" << std::endl;
         printSize(ft_test, 0);
         std::cout << "After erase :" << std::endl;
+
+        start1 = std::clock();
         ft_test.erase(it_ft);
+        end1 = std::clock();
+
         printSize(ft_test, 0);
         std::cout << "-----------std----------- " << std::endl;
         std::cout << "Before erase :" << std::endl;
         printSize(std_test, 0);
         std::cout << "After erase :" << std::endl;
+
+        start2 = std::clock();
         std_test.erase(it_std);
+        end2 = std::clock();
+
         printSize(std_test, 0);
-        std::cout << std::endl;
+
+        std::string toPrint;
+        double time = (end2 - start2) == 0 ? 1 : (end2 - start2);
+        toPrint = ((end1 - start1) > (time * 20)) ? FRED("Diff Time KO") : FGRN("Diff Time OK");
+        std::cout << toPrint << std::endl << std::endl;
 
         std::cout << FGRN("erase range :") << std::endl;
         std::cout << "-----------ft----------- " << std::endl;
         std::cout << "Before erase :" << std::endl;
         printSize(ft_test, 0);
         std::cout << "After erase :" << std::endl;
+
+        start1 = std::clock();
         ft_test.erase(ft_test.begin(), ite_ft);
+        end1 = std::clock();
+
         printSize(ft_test, 0);
         std::cout << "-----------std----------- " << std::endl;
         std::cout << "Before erase :" << std::endl;
         printSize(std_test, 0);
         std::cout << "After erase :" << std::endl;
+
+        start2 = std::clock();
         std_test.erase(std_test.begin(), ite_std);
+        end2 = std::clock();
+
         printSize(std_test, 0);
 
         std::cout << FCYN("COMPARE CONTENT----------------------") << std::endl;
         controlContent(ft_test, std_test);
-        std::cout << std::endl << std::endl;
-    }
 
+        time = (end2 - start2) == 0 ? 1 : (end2 - start2);
+        toPrint = ((end1 - start1) > (time * 20)) ? FRED("Diff Time KO") : FGRN("Diff Time OK");
+        std::cout << toPrint << std::endl << std::endl;
+    }
     {
         std::cout << FMAG("============== insert() ==============") << std::endl;
         // ========= STD DECLARATIONS =====================
@@ -479,9 +522,7 @@ int main(void)
         rit += 4;
         std::cout << "reverse iterator + 4 : " << *rit << std::endl;
         rit -= 2;
-        std::cout << "reverse iterator + 2: " << *rit << std::endl;
+        std::cout << "reverse iterator + 2: " << *rit << std::endl << std::endl;
 
     }
-
-    return (0);
 }
