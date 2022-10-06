@@ -561,8 +561,6 @@ namespace ft {
              */
             void swap (vector &x)
             {
-                if (*this == x)
-                    return ;
 
                 allocator_type  _alloc_tmp = x._alloc;
                 pointer         _vec_tmp = x._vec;

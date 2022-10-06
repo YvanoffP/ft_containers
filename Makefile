@@ -1,6 +1,6 @@
 NAME = containers
 
-SRCS =	src/main.cpp \
+SRCS =	main.cpp \
 		src/tests_map.cpp \
 		src/tests_vector.cpp \
 		src/tests_stack.cpp
